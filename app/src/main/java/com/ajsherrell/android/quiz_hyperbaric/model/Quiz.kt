@@ -1,7 +1,5 @@
 package com.ajsherrell.android.quiz_hyperbaric.model
 
-import java.util.*
-
 data class Response(
     val category: List<Category> = mutableListOf()
 )
