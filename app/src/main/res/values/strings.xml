@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Quiz-Hyperbaric</string>
+    <string name="category">Category</string>
 </resources>
