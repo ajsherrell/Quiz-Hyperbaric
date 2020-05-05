@@ -38,13 +38,11 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
-
+        binding.lifecycleOwner = this
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)
             adapter = quizListAdapter
         }
-        binding.lifecycleOwner = this
-        binding.model = model
         rootView = binding.root
 
         model.refreshDataFromRepo()

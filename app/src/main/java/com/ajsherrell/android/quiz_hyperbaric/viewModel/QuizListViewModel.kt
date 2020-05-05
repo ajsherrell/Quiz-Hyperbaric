@@ -16,12 +16,11 @@ import java.io.IOException
 
 
 class QuizListViewModel: AndroidViewModel(QuizApplication()) {
+    private val repository = QuizRepository()
 
     private val job = Job()
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
-
-    private val repository = QuizRepository.get()
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>

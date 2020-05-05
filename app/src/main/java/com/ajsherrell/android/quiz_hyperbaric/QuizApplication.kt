@@ -10,7 +10,6 @@ class QuizApplication : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
 
-        QuizRepository.initialize(this)
     }
 
 }
