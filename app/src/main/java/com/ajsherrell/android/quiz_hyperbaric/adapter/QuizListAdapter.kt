@@ -8,8 +8,8 @@ import com.ajsherrell.android.quiz_hyperbaric.QuizApplication
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ButtonListBinding
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+
 
 class QuizListAdapter (val clickListener: QuizListClickListener)
     : RecyclerView.Adapter<QuizListAdapter.QuizHolder>() {

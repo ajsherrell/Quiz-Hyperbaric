@@ -2,11 +2,12 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.ajsherrell.android.quiz_hyperbaric.QuizApplication
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
-import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,6 +18,7 @@ import java.lang.IllegalArgumentException
 
 
 class QuizListViewModel(application: Application): AndroidViewModel(application) {
+
     private val repository = QuizRepository()
 
     private val job = Job()
@@ -43,7 +45,7 @@ class QuizListViewModel(application: Application): AndroidViewModel(application)
         refreshDataFromRepo()
     }
 
-    private fun refreshDataFromRepo() {
+    fun refreshDataFromRepo() {
         coroutineScope.launch {
             try {
                 _refreshing.value = true
