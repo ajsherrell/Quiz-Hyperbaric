@@ -1,21 +1,24 @@
 package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
+import android.app.Application
+import androidx.lifecycle.*
+import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
+import com.ajsherrell.android.quiz_hyperbaric.model.Category
+import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.ajsherrell.android.quiz_hyperbaric.QuizApplication
-import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
-import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.IOException
+import java.lang.IllegalArgumentException
 
 
-class QuizListViewModel: AndroidViewModel(QuizApplication()) {
+class QuizListViewModel(application: Application): AndroidViewModel(application) {
+
     private val repository = QuizRepository()
 
     private val job = Job()
@@ -30,12 +33,24 @@ class QuizListViewModel: AndroidViewModel(QuizApplication()) {
     val refreshing :LiveData<Boolean>
         get() = _refreshing
 
+    private val _quizData: MutableLiveData<Response> = MutableLiveData()
+    val quizData: LiveData<Response>
+        get() = _quizData
+
+    private val _category: MutableLiveData<List<Category>> = MutableLiveData()
+    val category: LiveData<List<Category>>
+        get() = _category
+
+    init {
+        refreshDataFromRepo()
+    }
+
     fun refreshDataFromRepo() {
         coroutineScope.launch {
             try {
                 _refreshing.value = true
                 repository.getResponse()
-                Timber.d("Data refreshed from repository!!!")
+                Timber.d("Data refreshed from repository!!! ${repository.getResponse()}")
             } catch (e: IOException) {
                 "error fetching Quiz Api: ${e.message}".apply {
                     _errorMessage.value = this
@@ -51,5 +66,15 @@ class QuizListViewModel: AndroidViewModel(QuizApplication()) {
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+    }
+
+    class Factory(private val application: Application): ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(QuizListViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return QuizListViewModel(application) as T
+            }
+            throw IllegalArgumentException("Unable to construct viewModel")
+        }
     }
 }

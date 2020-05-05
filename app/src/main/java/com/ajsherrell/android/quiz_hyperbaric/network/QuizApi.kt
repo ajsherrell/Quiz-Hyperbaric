@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface QuizApi {
 
-    @GET
-    suspend fun getQuiz(): List<Response>
+    @GET("/")
+    suspend fun getQuiz(): Response
 
 }

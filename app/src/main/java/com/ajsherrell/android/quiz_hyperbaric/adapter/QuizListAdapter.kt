@@ -4,20 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ajsherrell.android.quiz_hyperbaric.QuizApplication
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ButtonListBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Response
+import com.ajsherrell.android.quiz_hyperbaric.model.Category
+import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+
 
 class QuizListAdapter (val clickListener: QuizListClickListener)
     : RecyclerView.Adapter<QuizListAdapter.QuizHolder>() {
 
-    private var response: List<Response> = listOf()
+    private var category: List<Category> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ButtonListBinding>(
             layoutInflater,
-            R.layout.fragment_list,
+            R.layout.button_list,
             parent,
             false
         )
@@ -26,16 +29,15 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
     }
 
     override fun getItemCount(): Int {
-        return response.size
+        return category.size
     }
 
     override fun onBindViewHolder(holder: QuizHolder, position: Int) {
-        val response = response[position]
-        holder.bind(response, position)
+        holder.bind(category[position], position)
     }
 
-    fun updateListItems(responseList: List<Response>) {
-        this.response = responseList
+    fun updateListItems(categoryList: List<Category>) {
+        this.category = categoryList
     }
 
     inner class QuizHolder(
@@ -43,9 +45,14 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
         private val clickListener: QuizListClickListener) :
             RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(response: Response, position: Int) {
+        init {
+            binding.model = QuizListViewModel(QuizApplication())
+        }
+
+        fun bind(categoryList: Category, positionList: Int) {
             binding.apply {
-                category = response.category[position]
+                category = categoryList
+                position = positionList
                 onRecyclerViewItemClick = clickListener
                 executePendingBindings()
             }

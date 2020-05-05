@@ -1,11 +1,9 @@
 package com.ajsherrell.android.quiz_hyperbaric.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Response(
-    @Json(name = "category")
     val category: List<Category> = mutableListOf()
 )
 
