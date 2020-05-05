@@ -5,12 +5,21 @@
     <data>
         <variable
             name="model"
-            type="com.ajsherrell.android.quiz_hyperbaric.ListViewModel" />
+            type="com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel" />
+        <variable
+            name="category"
+            type="com.ajsherrell.android.quiz_hyperbaric.model.Category" />
+        <variable
+            name="onRecyclerViewItemClick"
+            type="com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener" />
+        <variable
+            name="position"
+            type="Integer" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_recycler_view"
-         android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp">
 
@@ -18,6 +27,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
+            android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
+            android:text="@{category.title}"
             tools:text="@string/category"/>
 
     </androidx.recyclerview.widget.RecyclerView>

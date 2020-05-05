@@ -1,21 +1,33 @@
 package com.ajsherrell.android.quiz_hyperbaric.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@Entity
+@JsonClass(generateAdapter = true)
 data class Response(
-    val category: List<Category> = mutableListOf()
+    @Json(name = "category")
+    @PrimaryKey @ColumnInfo(name = "category") val category: List<Category> = mutableListOf()
 )
 
+@JsonClass(generateAdapter = true)
 data class Category(
-    val title: String,
-    val questions: List<Questions> = mutableListOf()
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "questions") val questions: List<Questions> = mutableListOf()
 )
 
+@JsonClass(generateAdapter = true)
 data class Questions(
-    val id: Int,
-    val answer: String,
-    val options: List<Options> = mutableListOf(),
-    val questionText: String
+    @ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "answer") val answer: String,
+    @ColumnInfo(name = "options") val options: List<Options> = mutableListOf(),
+    @ColumnInfo(name = "questionText") val questionText: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Options(
-    val options: List<String>
+    @ColumnInfo(name = "options") val options: List<String>
 )
