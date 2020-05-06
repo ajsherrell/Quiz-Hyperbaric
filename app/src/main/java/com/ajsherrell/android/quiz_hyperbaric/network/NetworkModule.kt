@@ -11,12 +11,12 @@ private val moshi = Moshi.Builder()
     .build()
 
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
     .baseUrl(BASE_URL)
+    .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
     .build()
 
-object NetworkModule {
-    val apiService: QuizApi by lazy {
+object ApiService {
+    val quizApi: QuizApi by lazy {
         retrofit.create(QuizApi::class.java)
     }
 }
