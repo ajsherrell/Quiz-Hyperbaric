@@ -9,9 +9,9 @@ import kotlinx.coroutines.withContext
 class QuizRepository {
     private val nm = NetworkModule
 
-    private val liveDataList = MutableLiveData<Response>()
+    private val liveDataList = MutableLiveData<retrofit2.Response<Response>>()
 
-    suspend fun getResponse(): MutableLiveData<Response> {
+    suspend fun getResponse(): MutableLiveData<retrofit2.Response<Response>> {
         withContext(Dispatchers.IO) {
             liveDataList.value = nm.apiService.getQuiz()
         }

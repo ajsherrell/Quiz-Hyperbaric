@@ -60,6 +60,7 @@ class ListFragment : Fragment() {
         rootView = binding.root
 
         Timber.d("JSON data!!! = ${model.quizData}")
+        Timber.d("Category is!!! ${model.category}")
         model.refreshDataFromRepo()
 
         return rootView
