@@ -1,80 +1,39 @@
 package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Response
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.io.IOException
-import java.lang.IllegalArgumentException
+import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-
-class QuizListViewModel(application: Application): AndroidViewModel(application) {
-
-    private val repository = QuizRepository()
-
+class QuizListViewModel : ViewModel() {
     private val job = Job()
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
+    private val coroutineContext : CoroutineContext get() = job + Dispatchers.Default
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
+    private val scope = CoroutineScope(coroutineContext)
 
-    private val _refreshing: MutableLiveData<Boolean> = MutableLiveData(false)
-    val refreshing :LiveData<Boolean>
-        get() = _refreshing
+    private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
-    private val _quizData: MutableLiveData<Response> = MutableLiveData()
-    val quizData: LiveData<Response>
-        get() = _quizData
+    val quizLiveData = MutableLiveData<MutableList<Category>>()
 
-    private val _category: MutableLiveData<List<Category>> = MutableLiveData()
-    val category: LiveData<List<Category>>
-        get() = _category
+    fun getQuizData() {
+        scope.launch {
+            val quizData = repo.getQuizData()
 
-    init {
-        refreshDataFromRepo()
-    }
-
-    fun refreshDataFromRepo() {
-        coroutineScope.launch {
-            try {
-                _refreshing.value = true
-                repository.getResponse()
-                Timber.d("Data refreshed from repository!!! ${repository.getResponse()}")
-            } catch (e: IOException) {
-                "error fetching Quiz Api: ${e.message}".apply {
-                    _errorMessage.value = this
-                    Timber.e(this)
-                }
-                e.printStackTrace()
-            } finally {
-                _refreshing.value = false
-            }
+            quizLiveData.postValue(quizData)
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        job.cancel()
-    }
+    fun cancelRequest() = coroutineContext.cancel()
+}
 
-    class Factory(private val application: Application): ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(QuizListViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return QuizListViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewModel")
-        }
+@Suppress("UNCHECKED_CAST")
+class QuizFactory : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return QuizListViewModel() as T
     }
 }

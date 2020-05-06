@@ -46,7 +46,7 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
             RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.model = QuizListViewModel(QuizApplication())
+            binding.model = QuizListViewModel()
         }
 
         fun bind(categoryList: Category, positionList: Int) {
