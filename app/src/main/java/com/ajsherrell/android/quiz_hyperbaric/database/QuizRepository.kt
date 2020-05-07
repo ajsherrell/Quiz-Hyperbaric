@@ -8,17 +8,18 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class QuizRepository {
-//    private val api = ApiService
 
-    private val liveDataList = MutableLiveData<retrofit2.Response<Response>>()
+    private val service: ApiService = ApiService
+
+//    private val liveData = MutableLiveData<Response>()
+    private suspend fun getData() {
+//        liveData.value = service.quizApi.getQuiz()
+        service.quizApi.getQuiz()
+    }
 
     suspend fun getResponse() {
         withContext(Dispatchers.IO) {
-            ApiService.quizApi.getQuiz().let {
-                liveDataList.value = it
-            }
-//            liveDataList.value = api.quizApi.getQuiz()
-            Timber.d("liveDataList!!! = $liveDataList")
+            getData()
         }
     }
 }

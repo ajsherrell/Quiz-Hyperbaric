@@ -37,9 +37,9 @@ class QuizListViewModel(application: Application): AndroidViewModel(application)
     val quizData: LiveData<Response>
         get() = _quizData
 
-    private val _category: MutableLiveData<List<Category>> = MutableLiveData()
-    val category: LiveData<List<Category>>
-        get() = _category
+//    private val _category: MutableLiveData<List<Category>> = MutableLiveData()
+//    val category: LiveData<List<Category>>
+//        get() = _category
 
     init {
         refreshDataFromRepo()

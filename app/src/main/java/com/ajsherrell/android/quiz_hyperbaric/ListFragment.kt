@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
@@ -20,11 +20,19 @@ class ListFragment : Fragment() {
 
     private var errorSnackbar: Snackbar? = null
 
+//    private val model: QuizListViewModel by lazy {
+//        requireNotNull(activity).let {
+//            ViewModelProviders.of(
+//                this,
+//                QuizListViewModel.Factory(it.application)
+//            )[QuizListViewModel::class.java]
+//        }
+//    }
+
     private val model: QuizListViewModel by lazy {
         requireNotNull(activity).let {
-            ViewModelProviders.of(
-                this,
-                QuizListViewModel.Factory(it.application)
+            ViewModelProvider(this@ListFragment,
+            QuizListViewModel.Factory(it.application)
             )[QuizListViewModel::class.java]
         }
     }
@@ -60,7 +68,6 @@ class ListFragment : Fragment() {
         rootView = binding.root
 
         Timber.d("JSON data!!! = ${model.quizData}")
-        Timber.d("Category is!!! ${model.category}")
         model.refreshDataFromRepo()
 
         return rootView
