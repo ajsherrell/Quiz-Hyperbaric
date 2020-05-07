@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentListBinding
+import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
@@ -20,22 +21,9 @@ class ListFragment : Fragment() {
 
     private var errorSnackbar: Snackbar? = null
 
-//    private val model: QuizListViewModel by lazy {
-//        requireNotNull(activity).let {
-//            ViewModelProviders.of(
-//                this,
-//                QuizListViewModel.Factory(it.application)
-//            )[QuizListViewModel::class.java]
-//        }
-//    }
+    private lateinit var model: QuizListViewModel
 
-    private val model: QuizListViewModel by lazy {
-        requireNotNull(activity).let {
-            ViewModelProvider(this@ListFragment,
-            QuizListViewModel.Factory(it.application)
-            )[QuizListViewModel::class.java]
-        }
-    }
+    private val viewModelFactory = QuizFactory()
 
     private lateinit var binding: FragmentListBinding
     private lateinit var rootView: View
@@ -48,6 +36,11 @@ class ListFragment : Fragment() {
         }
     })
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        model = ViewModelProvider(this@ListFragment, viewModelFactory).get(QuizListViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,8 +49,10 @@ class ListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        model.quizData.observe(viewLifecycleOwner, Observer {
-            quizListAdapter.updateListItems(it.category)
+        model.getQuizData()
+
+        model.quizLiveData.observe(viewLifecycleOwner, Observer {
+            quizListAdapter.updateListItems(it)
             quizListAdapter.notifyDataSetChanged()
         })
 
@@ -66,9 +61,7 @@ class ListFragment : Fragment() {
             adapter = quizListAdapter
         }
         rootView = binding.root
-
-        Timber.d("JSON data!!! = ${model.quizData}")
-        model.refreshDataFromRepo()
+        Timber.d("JSON data!!! = ${model.quizLiveData}")
 
         return rootView
     }
