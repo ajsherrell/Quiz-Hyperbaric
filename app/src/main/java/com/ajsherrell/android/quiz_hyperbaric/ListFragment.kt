@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
@@ -23,7 +23,7 @@ class ListFragment : Fragment() {
 
     private lateinit var model: QuizListViewModel
 
-    val viewModelFactory = QuizFactory()
+    private val viewModelFactory = QuizFactory()
 
     private lateinit var binding: FragmentListBinding
     private lateinit var rootView: View
@@ -38,8 +38,7 @@ class ListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model = ViewModelProviders.of(this@ListFragment, viewModelFactory)
-            .get(QuizListViewModel::class.java)
+        model = ViewModelProvider(this@ListFragment, viewModelFactory).get(QuizListViewModel::class.java)
     }
 
     override fun onCreateView(
