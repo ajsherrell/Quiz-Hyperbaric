@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface QuizApi {
 
-    @GET("/")
+    @GET("/68a0fdf29ebd9dc2774d/")
     fun getQuizAsync(): Deferred<Response<com.ajsherrell.android.quiz_hyperbaric.model.Response>>
 
 }
