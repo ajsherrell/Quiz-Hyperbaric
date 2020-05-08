@@ -29,6 +29,7 @@
             android:layout_gravity="center"
             android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
             android:text="@{category.title}"
+            android:textColor="@android:color/white"
             tools:text="@string/category" />
 
     </FrameLayout>
