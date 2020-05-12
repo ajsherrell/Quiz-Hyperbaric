@@ -10,16 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizDetailAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import kotlinx.android.synthetic.main.detail_item.*
 import timber.log.Timber
 
 class DetailFragment : Fragment() {
@@ -32,7 +28,6 @@ class DetailFragment : Fragment() {
 
     private val viewModelFactory = QuizFactory()
 
-//    private val quizDetailAdapter = QuizDetailAdapter()
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
             Toast.makeText(context,"Position $position was clicked", Toast.LENGTH_SHORT).show()
@@ -70,25 +65,20 @@ class DetailFragment : Fragment() {
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it)
             quizListAdapter.notifyDataSetChanged()
-            dBinding.cat = it[index]
+            it?.let {
+                dBinding.q
+            }
+            Timber.d("!!!dBinding.q = ${dBinding.q}")
         })
 
+//        model.getQData()
+//
 //        model.catLiveData.observe(viewLifecycleOwner, Observer {
 //            quizListAdapter.updateListItems(it)
 //            quizListAdapter.notifyDataSetChanged()
-//            Timber.d("catLiveData is!!! ${it[1].questionText}")
-//            it?.let {
-//                dBinding.q = it[index]
-//                Timber.d("dBinding.q = !!! ${it[index]}")
-//            }
+//            dBinding.q = it[index]
+//            Timber.d("!!! it[index] = ${it[index]}")
 //        })
-
-//        model.quizLiveData.observe(viewLifecycleOwner,
-//            Observer<Category> {
-//                it?.let {
-//                    binding.detailRecyclerView = it.questions[index]
-//                }
-//            })
 
         rootView = binding.root
         return rootView

@@ -55,6 +55,7 @@ class ListFragment : Fragment() {
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it)
             quizListAdapter.notifyDataSetChanged()
+            Timber.d("!!!it = $it")
         })
 
         binding.listRecyclerView.apply {

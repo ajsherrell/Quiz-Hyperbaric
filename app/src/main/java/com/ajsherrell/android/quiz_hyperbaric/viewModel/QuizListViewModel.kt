@@ -21,7 +21,7 @@ class QuizListViewModel : ViewModel() {
 
     val quizLiveData = MutableLiveData<MutableList<Category>>()
 
-    val catLiveData = MutableLiveData<List<Questions>>()
+    val catLiveData = MutableLiveData<MutableList<Questions>>()
 
     fun getQuizData() {
         scope.launch {
@@ -36,7 +36,6 @@ class QuizListViewModel : ViewModel() {
             catLiveData.postValue(qData)
         }
     }
-
 
     fun cancelRequest() = coroutineContext.cancel() //todo: where to call?
 }
