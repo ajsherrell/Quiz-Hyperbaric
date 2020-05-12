@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
+import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -20,6 +21,8 @@ class QuizListViewModel : ViewModel() {
 
     val quizLiveData = MutableLiveData<MutableList<Category>>()
 
+    val catLiveData = MutableLiveData<List<Questions>>()
+
     fun getQuizData() {
         scope.launch {
             val quizData = repo.getQuizData()
@@ -27,7 +30,15 @@ class QuizListViewModel : ViewModel() {
         }
     }
 
-    fun cancelRequest() = coroutineContext.cancel()
+    fun getQData() {
+        scope.launch {
+            val qData = repo.getQData()
+            catLiveData.postValue(qData)
+        }
+    }
+
+
+    fun cancelRequest() = coroutineContext.cancel() //todo: where to call?
 }
 
 @Suppress("UNCHECKED_CAST")

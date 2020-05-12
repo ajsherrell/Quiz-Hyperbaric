@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
@@ -30,9 +31,9 @@ class ListFragment : Fragment() {
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
-            Toast.makeText(context,"This item was clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Position $position was clicked", Toast.LENGTH_SHORT).show()
             Timber.d("Position clicked: $position!!!")
-            //todo: declare function to launch detail fragment with the position.
+            launchDetailFragment(position)
         }
     })
 
@@ -65,5 +66,20 @@ class ListFragment : Fragment() {
 
         return rootView
     }
+
+    private fun launchDetailFragment(position: Int) {
+        val action = ListFragmentDirections.actionListFragmentToDetailFragment(position)
+        findNavController().navigate(action)
+    }
+//
+//    private fun showError(@StringRes errorMessage: Int) {
+//        errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
+//        errorSnackbar?.setAction(R.string.retry, model.errorClickListener)
+//        errorSnackbar?.show()
+//    }
+//
+//    private fun hideError() {
+//        errorSnackbar?.dismiss()
+//    }
 
 }

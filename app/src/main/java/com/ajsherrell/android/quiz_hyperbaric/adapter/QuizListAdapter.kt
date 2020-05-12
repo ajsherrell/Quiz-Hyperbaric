@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ajsherrell.android.quiz_hyperbaric.QuizApplication
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ButtonListBinding
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
@@ -30,6 +29,10 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
 
     override fun getItemCount(): Int {
         return category.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: QuizHolder, position: Int) {

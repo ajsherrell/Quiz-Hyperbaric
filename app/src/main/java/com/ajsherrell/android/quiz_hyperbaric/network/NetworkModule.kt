@@ -8,6 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 object NetworkModule {
 
@@ -22,7 +23,13 @@ object NetworkModule {
         chain.proceed(request)
     }
 
-    private val client = OkHttpClient().newBuilder().addInterceptor(interceptor).build()
+    private val client = OkHttpClient()
+        .newBuilder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
+        .build()
 
 private val retrofit = Retrofit.Builder().client(client)
     .baseUrl(BASE_URL)
