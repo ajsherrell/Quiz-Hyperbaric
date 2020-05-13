@@ -60,9 +60,9 @@ class DetailFragment : Fragment() {
             adapter = quizListAdapter
         }
 
-        model.getQuizData()
+        model.getQData()
 
-        model.quizLiveData.observe(viewLifecycleOwner, Observer {
+        model.catLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it)
             quizListAdapter.notifyDataSetChanged()
             it?.let {

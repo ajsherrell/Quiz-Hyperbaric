@@ -1,5 +1,6 @@
 package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,9 @@ class QuizListViewModel : ViewModel() {
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
     val quizLiveData = MutableLiveData<MutableList<Category>>()
+//    private val _quizLiveData: MutableLiveData<Category> = MutableLiveData()
+//    val quizLiveData: LiveData<Category>
+//        get() = _quizLiveData
 
     val catLiveData = MutableLiveData<MutableList<Questions>>()
 

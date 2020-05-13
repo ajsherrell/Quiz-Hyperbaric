@@ -2,6 +2,7 @@ package com.ajsherrell.android.quiz_hyperbaric.database
 
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
+import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.QuizApi
 import timber.log.Timber
 import java.io.IOException
