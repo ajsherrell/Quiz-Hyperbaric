@@ -7,7 +7,7 @@
             name="model"
             type="com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel" />
         <variable
-            name="category"
+            name="cat"
             type="com.ajsherrell.android.quiz_hyperbaric.model.Category" />
         <variable
             name="onRecyclerViewItemClick"
@@ -28,7 +28,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
-            android:text="@{category.title}"
+            android:text="@{cat.title}"
             android:textColor="@android:color/white"
             tools:text="@string/category" />
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Questions
+import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -14,30 +14,31 @@ import kotlin.coroutines.CoroutineContext
 class QuizListViewModel : ViewModel() {
     private val job = Job()
 
-    private val coroutineContext : CoroutineContext get() = job + Dispatchers.Default
+    private val coroutineContext : CoroutineContext get() = job + Dispatchers.Main
 
     private val scope = CoroutineScope(coroutineContext)
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
-    val quizLiveData = MutableLiveData<MutableList<Category>>()
-//    private val _quizLiveData: MutableLiveData<Category> = MutableLiveData()
-//    val quizLiveData: LiveData<Category>
-//        get() = _quizLiveData
+    private val _quizLiveData: MutableLiveData<Response> = MutableLiveData()
+    val quizLiveData: LiveData <Response>
+        get() = _quizLiveData
 
-    val catLiveData = MutableLiveData<MutableList<Questions>>()
+    private val _catLiveData: MutableLiveData<List<Category>> = MutableLiveData()
+    val catLiveData: LiveData<List<Category>>
+        get() = _catLiveData
 
     fun getQuizData() {
         scope.launch {
             val quizData = repo.getQuizData()
-            quizLiveData.postValue(quizData)
+            _quizLiveData.value = quizData
         }
     }
 
     fun getQData() {
         scope.launch {
             val qData = repo.getQData()
-            catLiveData.postValue(qData)
+            _catLiveData.value = qData
         }
     }
 

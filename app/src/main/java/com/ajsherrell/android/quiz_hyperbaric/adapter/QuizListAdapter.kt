@@ -80,7 +80,7 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
 
         override fun bind(item: Category, pos: Int) {
             binding.apply {
-                category = item
+                cat = item
                 position = pos
                 onRecyclerViewItemClick = clickListener
                 executePendingBindings()

@@ -1,7 +1,6 @@
 package com.ajsherrell.android.quiz_hyperbaric.database
 
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.QuizApi
 import timber.log.Timber
@@ -9,18 +8,18 @@ import java.io.IOException
 
 class QuizRepository(private val api: QuizApi) : BaseRepository() {
 
-    suspend fun getQuizData() : MutableList<Category>? {
+    suspend fun getQuizData() : Response? {
         return safeApiCall(
-            call = {api.getQuizAsync().await()},
-            error = "Error fetching quiz data!!!"
-        )?.category?.toMutableList()
+                call = { api.getQuizAsync().await() },
+                error = "Error fetching quiz data!!!"
+            )
     }
 
-    suspend fun getQData() : MutableList<Questions>? {
+    suspend fun getQData() : MutableList<Category>? {
         return safeApiCall(
             call = {api.getQuizAsync().await()},
             error = "Error fetching q data!!!"
-        )?.category?.get(0)?.questions?.toMutableList()
+        )?.category?.toMutableList()
     }
 }
 

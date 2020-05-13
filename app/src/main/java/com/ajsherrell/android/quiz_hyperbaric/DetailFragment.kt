@@ -63,22 +63,11 @@ class DetailFragment : Fragment() {
         model.getQData()
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
-            quizListAdapter.updateListItems(it)
+            quizListAdapter.updateListItems(it[index].questions)
             quizListAdapter.notifyDataSetChanged()
-            it?.let {
-                dBinding.q
-            }
-            Timber.d("!!!dBinding.q = ${dBinding.q}")
+            dBinding.q = it[0].questions[0]
+            Timber.d("!!! it = ${it[0].questions[0]}")
         })
-
-//        model.getQData()
-//
-//        model.catLiveData.observe(viewLifecycleOwner, Observer {
-//            quizListAdapter.updateListItems(it)
-//            quizListAdapter.notifyDataSetChanged()
-//            dBinding.q = it[index]
-//            Timber.d("!!! it[index] = ${it[index]}")
-//        })
 
         rootView = binding.root
         return rootView
