@@ -16,6 +16,7 @@ import timber.log.Timber
 
  class MainActivity : AppCompatActivity() {
 
+     //nav drawer made with https://www.raywenderlich.com/6014-the-navigation-architecture-component-tutorial-getting-started#toc-anchor-011
      private lateinit var drawerLayout: DrawerLayout
      private lateinit var appBarConfiguration: AppBarConfiguration
      private lateinit var navController: NavController

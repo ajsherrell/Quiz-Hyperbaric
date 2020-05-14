@@ -9,20 +9,19 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="@dimen/navigation_drawer_image_width"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:contentDescription="@string/navigation_drawer_header_content_description"
         android:visibility="visible"
-
-        app:srcCompat="@drawable/ic_grid_on" />
+        app:srcCompat="@drawable/ic_school" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/navigation_drawer_header_title"
-        android:textSize="24sp"
+        android:textSize="36sp"
         android:layout_margin="@dimen/nav_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

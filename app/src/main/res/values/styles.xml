@@ -8,7 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:windowBackground">@color/soothing_blue</item>
-        <item name="buttonStyle">@style/CategoryButton</item>
+        <!--        <item name="android:buttonStyle">@style/CategoryButton</item>-->
+        <!--        <item name="buttonStyle">@style/CategoryButton</item>-->
+
     </style>
 
     <style name="CategoryButton" parent="Widget.AppCompat.Button">

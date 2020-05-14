@@ -22,16 +22,24 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/list_button"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:background="@drawable/category_button"
             android:layout_gravity="center"
             android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
-            android:text="@{cat.title}"
+            android:contentDescription="@string/list_of_categories" />
+
+        <TextView android:id="@+id/list_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            style="@style/CategoryButton"
-            tools:text="@string/category" />
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            tools:text="@string/category"
+            android:layout_gravity="center"
+            android:text="@{cat.title}"/>
 
     </FrameLayout>
 
