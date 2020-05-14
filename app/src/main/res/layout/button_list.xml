@@ -30,6 +30,7 @@
             android:onClick="@{() -> onRecyclerViewItemClick.onItemClicked(position)}"
             android:text="@{cat.title}"
             android:textColor="@android:color/white"
+            style="@style/CategoryButton"
             tools:text="@string/category" />
 
     </FrameLayout>

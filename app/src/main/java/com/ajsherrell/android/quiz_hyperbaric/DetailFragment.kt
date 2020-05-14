@@ -17,6 +17,7 @@ import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import timber.log.Timber
+import java.util.*
 
 class DetailFragment : Fragment() {
 

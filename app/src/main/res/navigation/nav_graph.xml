@@ -7,20 +7,39 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.ListFragment"
-        android:label="ListFragment"
+        android:label="HBO Quiz Categories"
         tools:layout="@layout/button_list">
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_enter"
+            app:popEnterAnim="@anim/fragment_open_exit"
+            app:popExitAnim="@anim/fragment_close_exit"/>
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.DetailFragment"
-        android:label="DetailFragment"
+        android:label="Quiz"
         tools:layout="@layout/detail_item" >
         <argument
             android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/about_fragment"
+        android:name="com.ajsherrell.android.quiz_hyperbaric.nav.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/resources_fragment"
+        android:name="com.ajsherrell.android.quiz_hyperbaric.nav.ResourcesFragment"
+        android:label="@string/resources"
+        tools:layout="@layout/fragment_resources" />
+    <fragment
+        android:id="@+id/score_fragment"
+        android:name="com.ajsherrell.android.quiz_hyperbaric.nav.HighScoreFragment"
+        android:label="@string/high_score"
+        tools:layout="@layout/fragment_high_score" />
 </navigation>

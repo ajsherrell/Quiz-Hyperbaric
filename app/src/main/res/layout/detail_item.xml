@@ -37,21 +37,22 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:layout_width="177dp"
-            android:layout_height="180dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionTextView">
+            app:layout_constraintTop_toBottomOf="@+id/questionTextView"
+            app:layout_constraintVertical_bias="0.49">
 
             <RadioButton
                 android:id="@+id/radioButton1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColor="@android:color/white"
                 android:text="@{q.options[0]}"
+                android:textColor="@android:color/white"
                 tools:text="@string/one" />
 
             <RadioButton
@@ -68,8 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColor="@android:color/white"
                 android:text="@{q.options[2]}"
+                android:textColor="@android:color/white"
                 tools:text="@string/three" />
 
             <RadioButton
@@ -77,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColor="@android:color/white"
                 android:text="@{q.options[3]}"
+                android:textColor="@android:color/white"
                 tools:text="@string/four" />
         </RadioGroup>
 

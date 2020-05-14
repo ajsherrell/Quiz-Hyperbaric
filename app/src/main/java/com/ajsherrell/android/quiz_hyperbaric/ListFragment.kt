@@ -40,6 +40,7 @@ class ListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProvider(this@ListFragment, viewModelFactory).get(QuizListViewModel::class.java)
+//        (activity as MainActivity).supportActionBar?.title = getString(R.string.app_name)
     }
 
     override fun onCreateView(

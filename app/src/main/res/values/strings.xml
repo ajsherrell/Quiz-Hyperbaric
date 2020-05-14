@@ -9,4 +9,19 @@
     <string name="four">Radio answer four</string>
     <string name="next">Next</string>
     <string name="retry">Retry</string>
+    <string name="navigation_drawer_header_content_description">Navigation drawer header logo</string>
+    <string name="navigation_drawer_header_title">Menu</string>
+    <string name="about">About</string>
+    <string name="high_score">High Score</string>
+    <string name="resources">Resources</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="about_text">This quiz is for medical professionals to practice to take the Certified
+    Hyperbaric Tech exam.</string>
+    <string name="resources_text">These are links to resources to further improve knowledge of
+    hyperbarics.</string>
+    <string name="high_score_text">The is the high score page. It will have the user\'s name, and a list
+    of their scores.</string>
 </resources>
