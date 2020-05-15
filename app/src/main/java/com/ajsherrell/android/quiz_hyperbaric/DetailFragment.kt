@@ -16,6 +16,8 @@ import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
 import java.util.*
 
@@ -56,11 +58,6 @@ class DetailFragment : Fragment() {
         val index = args.position
         binding.lifecycleOwner = this
 
-        binding.detailRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = quizListAdapter
-        }
-
         model.getQData()
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
@@ -69,6 +66,11 @@ class DetailFragment : Fragment() {
             dBinding.q = it[0].questions[0]
             Timber.d("!!! it = ${it[0].questions[0]}")
         })
+
+        binding.detailRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = quizListAdapter
+        }
 
         rootView = binding.root
         return rootView

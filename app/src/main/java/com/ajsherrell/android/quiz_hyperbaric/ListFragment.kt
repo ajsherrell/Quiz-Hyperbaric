@@ -3,6 +3,7 @@ package com.ajsherrell.android.quiz_hyperbaric
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentListBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
 
 class ListFragment : Fragment() {
@@ -40,7 +42,6 @@ class ListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProvider(this@ListFragment, viewModelFactory).get(QuizListViewModel::class.java)
-//        (activity as MainActivity).supportActionBar?.title = getString(R.string.app_name)
     }
 
     override fun onCreateView(
@@ -59,19 +60,27 @@ class ListFragment : Fragment() {
             Timber.d("!!!it = ${it.category}")
         })
 
+        model.loading.observe(viewLifecycleOwner, Observer {
+            displayLoading(it == true)
+        })
+
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)
             adapter = quizListAdapter
         }
-        rootView = binding.root
-        Timber.d("JSON data!!! = ${model.quizLiveData}")
 
+        rootView = binding.root
         return rootView
     }
 
     private fun launchDetailFragment(position: Int) {
         val action = ListFragmentDirections.actionListFragmentToDetailFragment(position)
         findNavController().navigate(action)
+    }
+
+    // used: https://github.com/elpassion/crweather/blob/master/app/src/main/java/com/elpassion/crweather/MainActivity.kt
+    private fun displayLoading(loading: Boolean) {
+        progress_bar_list.visibility = if (loading) VISIBLE else GONE
     }
 //
 //    private fun showError(@StringRes errorMessage: Int) {

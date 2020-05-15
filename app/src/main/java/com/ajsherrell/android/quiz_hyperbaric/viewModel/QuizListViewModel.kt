@@ -9,6 +9,7 @@ import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import kotlinx.coroutines.*
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel : ViewModel() {
@@ -20,6 +21,10 @@ class QuizListViewModel : ViewModel() {
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
+    private val mutableLoading = MutableLiveData<Boolean>().apply { value = false }
+    val loading: LiveData<Boolean> = mutableLoading
+
+
     private val _quizLiveData: MutableLiveData<Response> = MutableLiveData()
     val quizLiveData: LiveData <Response>
         get() = _quizLiveData
@@ -29,16 +34,27 @@ class QuizListViewModel : ViewModel() {
         get() = _catLiveData
 
     fun getQuizData() {
-        scope.launch {
-            val quizData = repo.getQuizData()
-            _quizLiveData.value = quizData
+        try {
+            scope.launch {
+                mutableLoading.value = true
+                val quizData = repo.getQuizData()
+                _quizLiveData.value = quizData
+            }
+        } catch (e: IllegalThreadStateException) {
+            Timber.e("$e")
+        } finally {
+            mutableLoading.value = false
         }
     }
 
     fun getQData() {
-        scope.launch {
-            val qData = repo.getQData()
-            _catLiveData.value = qData
+        try {
+            scope.launch {
+                val qData = repo.getQData()
+                _catLiveData.value = qData
+            }
+        } catch (e: IllegalThreadStateException) {
+            Timber.e("$e")
         }
     }
 
