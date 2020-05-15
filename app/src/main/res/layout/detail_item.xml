@@ -22,17 +22,18 @@
 
         <TextView
             android:id="@+id/questionTextView"
+            style="@android:style/Widget.Holo.Light.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:background="@color/dark_blue"
+            android:text="@{q.questionText}"
             android:textColor="@android:color/white"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{q.questionText}"
             tools:text="@string/sampleQuestion" />
 
         <RadioGroup
@@ -50,36 +51,32 @@
                 android:id="@+id/radioButton1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/radio_text_style"
                 android:text="@{q.options[0]}"
-                android:textColor="@android:color/white"
                 tools:text="@string/one" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/radio_text_style"
                 android:text="@{q.options[1]}"
-                android:textColor="@android:color/white"
                 tools:text="@string/two" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/radio_text_style"
                 android:text="@{q.options[2]}"
-                android:textColor="@android:color/white"
                 tools:text="@string/three" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/radio_text_style"
                 android:text="@{q.options[3]}"
-                android:textColor="@android:color/white"
                 tools:text="@string/four" />
         </RadioGroup>
 
@@ -87,11 +84,11 @@
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:textColor="@android:color/white"
+            style="@style/radio_text_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/next"
             tools:text="@string/next" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
