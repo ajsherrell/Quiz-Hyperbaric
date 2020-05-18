@@ -38,8 +38,13 @@
         android:label="@string/resources"
         tools:layout="@layout/fragment_resources" />
     <fragment
-        android:id="@+id/score_fragment"
+        android:id="@+id/high_score_fragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.nav.HighScoreFragment"
         android:label="@string/high_score"
         tools:layout="@layout/fragment_high_score" />
+    <dialog
+        android:id="@+id/edit_profile_fragment"
+        android:name="com.ajsherrell.android.quiz_hyperbaric.nav.EditProfileFragment"
+        android:label="@string/add_user"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

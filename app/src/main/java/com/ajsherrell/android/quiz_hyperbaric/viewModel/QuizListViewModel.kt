@@ -33,7 +33,7 @@ class QuizListViewModel : ViewModel() {
     val catLiveData: LiveData<List<Category>>
         get() = _catLiveData
 
-    fun getQuizData() {
+    fun getQuizData() { //sets up the ListFragment
         try {
             scope.launch {
                 mutableLoading.value = true
@@ -47,7 +47,7 @@ class QuizListViewModel : ViewModel() {
         }
     }
 
-    fun getQData() {
+    fun getQData() { //sets up the DetailFragment
         try {
             scope.launch {
                 val qData = repo.getQData()

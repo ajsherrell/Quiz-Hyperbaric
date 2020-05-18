@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -17,10 +16,7 @@ import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
-import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -71,6 +67,10 @@ class DetailFragment : Fragment() {
         binding.detailRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = quizListAdapter
+        }
+
+        dBinding.next.setOnClickListener {
+            //todo: navigate to high score fragment if done with quiz.
         }
 
         rootView = binding.root

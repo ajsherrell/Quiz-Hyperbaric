@@ -12,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ActivityMainBinding
+import com.ajsherrell.android.quiz_hyperbaric.databinding.NavHeaderBinding
 import timber.log.Timber
 
  class MainActivity : AppCompatActivity() {
@@ -23,11 +24,12 @@ import timber.log.Timber
 
     //data binding
     private lateinit var binding: ActivityMainBinding
+     private lateinit var navHeaderBinding: NavHeaderBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("MainActivity has started in onCreate!!!")
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setupBinding()
 
         drawerLayout = binding.drawerLayout
 
@@ -40,7 +42,6 @@ import timber.log.Timber
 
         //set up nav menu
         binding.navigationView.setupWithNavController(navController)
-
     }
 
      override fun onSupportNavigateUp(): Boolean {
@@ -53,5 +54,21 @@ import timber.log.Timber
          } else {
              super.onBackPressed()
          }
+     }
+
+     private fun setupBinding() {
+         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+         navHeaderBinding = DataBindingUtil.inflate(
+             layoutInflater, R.layout.nav_header, binding.navigationView, false
+         )
+
+         navHeaderBinding.personImage.setOnClickListener{
+             navController.navigate(R.id.edit_profile_fragment)
+
+             drawerLayout.closeDrawer(GravityCompat.START)
+         }
+
+         binding.navigationView.addHeaderView(navHeaderBinding.root)
      }
 }

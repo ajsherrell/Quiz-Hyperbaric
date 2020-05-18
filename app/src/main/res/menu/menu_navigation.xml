@@ -4,7 +4,7 @@
         android:id="@+id/about_fragment"
         android:title="@string/about"/>
     <item
-        android:id="@+id/score_fragment"
+        android:id="@+id/high_score_fragment"
         android:title="@string/high_score"/>
     <item
         android:id="@+id/resources_fragment"
