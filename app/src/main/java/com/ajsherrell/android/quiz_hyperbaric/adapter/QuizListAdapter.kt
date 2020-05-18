@@ -10,7 +10,6 @@ import com.ajsherrell.android.quiz_hyperbaric.databinding.ButtonListBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
-import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import java.lang.IllegalArgumentException
 
 // used help from: https://medium.com/@ivancse.58/android-and-kotlin-recyclerview-with-multiple-view-types-65285a254393
@@ -38,7 +37,7 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
                     parent,
                     false
                 )
-                DetailHolder(binding)
+                DetailHolder(binding, clickListener)
             }
             else -> throw IllegalArgumentException("Invalid binding type!!!")
         }
@@ -74,10 +73,6 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
         private val clickListener: QuizListClickListener) :
             BaseViewHolder<Category>(binding.root) {
 
-//        init {
-//            binding.model = QuizListViewModel()
-//        }
-
         override fun bind(item: Category, pos: Int) {
             binding.apply {
                 cat = item
@@ -89,17 +84,15 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
     }
 
     inner class DetailHolder(
-        private val binding: DetailItemBinding
+        private val binding: DetailItemBinding,
+        private val clickListener: QuizListClickListener
     ) : BaseViewHolder<Questions>(binding.root) {
-
-//        init {
-//            binding.model = QuizListViewModel()
-//        }
 
         override fun bind(item: Questions, pos: Int) {
             binding.apply {
                 q = item
                 index = pos
+                onNextButtonClicked = clickListener
                 executePendingBindings()
             }
         }

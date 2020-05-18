@@ -62,6 +62,7 @@ class DetailFragment : Fragment() {
         dBinding.next.setOnClickListener {
             //launchScoresFragment()
             Toast.makeText(context,"Next button was clicked", Toast.LENGTH_SHORT).show()
+            Timber.d("Next button was clicked!!!")
         }
 
         rootView = binding.root

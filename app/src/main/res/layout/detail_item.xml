@@ -14,6 +14,9 @@
         <variable
             name="q"
             type="com.ajsherrell.android.quiz_hyperbaric.model.Questions" />
+        <variable
+            name="onNextButtonClicked"
+            type="com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,6 +90,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             style="@style/radio_text_style"
+            android:onClick="@{() -> onNextButtonClicked.onItemClicked(index)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/next"

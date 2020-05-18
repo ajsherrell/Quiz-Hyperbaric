@@ -11,6 +11,7 @@ import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentScoresBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import timber.log.Timber
 
 
 class ScoresFragment : Fragment() {
@@ -30,6 +31,7 @@ class ScoresFragment : Fragment() {
 
         binding.homeButton.setOnClickListener {
             Toast.makeText(context,"Home button was clicked", Toast.LENGTH_SHORT).show()
+            Timber.d("Home button was clicked!!!")
         }
 
         rootView = binding.root
