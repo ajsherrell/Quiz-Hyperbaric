@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,7 +14,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ActivityMainBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.NavHeaderBinding
+import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import timber.log.Timber
+import java.lang.IllegalArgumentException
 
  class MainActivity : AppCompatActivity() {
 
@@ -21,6 +24,7 @@ import timber.log.Timber
      private lateinit var drawerLayout: DrawerLayout
      private lateinit var appBarConfiguration: AppBarConfiguration
      private lateinit var navController: NavController
+     private var model: QuizListViewModel? = null
 
     //data binding
     private lateinit var binding: ActivityMainBinding
@@ -30,7 +34,6 @@ import timber.log.Timber
         super.onCreate(savedInstanceState)
         Timber.d("MainActivity has started in onCreate!!!")
         setupBinding()
-
         drawerLayout = binding.drawerLayout
 
         navController = findNavController(R.id.nav_host_fragment_container)
@@ -42,6 +45,8 @@ import timber.log.Timber
 
         //set up nav menu
         binding.navigationView.setupWithNavController(navController)
+
+        setupViewModel()
     }
 
      override fun onSupportNavigateUp(): Boolean {
@@ -53,6 +58,20 @@ import timber.log.Timber
              drawerLayout.closeDrawer(GravityCompat.START)
          } else {
              super.onBackPressed()
+         }
+     }
+
+     private fun setupViewModel() {
+         try {
+             val viewModelProvider = ViewModelProvider(
+                 navController.getViewModelStoreOwner(R.id.nav_graph),
+                 ViewModelProvider.AndroidViewModelFactory(application)
+             )
+             model = viewModelProvider.get(QuizListViewModel::class.java)
+             navHeaderBinding.model = model
+             //todo: loadProfile() from model?.loadProfile()
+         } catch (e: IllegalArgumentException) {
+             e.printStackTrace()
          }
      }
 

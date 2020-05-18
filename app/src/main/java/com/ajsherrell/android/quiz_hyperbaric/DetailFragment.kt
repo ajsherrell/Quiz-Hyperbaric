@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
-import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizFactory
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import timber.log.Timber
 
@@ -24,9 +23,7 @@ class DetailFragment : Fragment() {
     private lateinit var dBinding: DetailItemBinding
     private lateinit var rootView: View
 
-    private lateinit var model: QuizListViewModel
-
-    private val viewModelFactory = QuizFactory()
+    private val model: QuizListViewModel by navGraphViewModels(R.id.nav_graph)
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
@@ -36,14 +33,6 @@ class DetailFragment : Fragment() {
     })
 
     private val args: DetailFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        model = ViewModelProvider(
-            this@DetailFragment,
-            viewModelFactory
-        ).get(QuizListViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -74,9 +74,9 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
         private val clickListener: QuizListClickListener) :
             BaseViewHolder<Category>(binding.root) {
 
-        init {
-            binding.model = QuizListViewModel()
-        }
+//        init {
+//            binding.model = QuizListViewModel()
+//        }
 
         override fun bind(item: Category, pos: Int) {
             binding.apply {
@@ -92,9 +92,9 @@ class QuizListAdapter (val clickListener: QuizListClickListener)
         private val binding: DetailItemBinding
     ) : BaseViewHolder<Questions>(binding.root) {
 
-        init {
-            binding.model = QuizListViewModel()
-        }
+//        init {
+//            binding.model = QuizListViewModel()
+//        }
 
         override fun bind(item: Questions, pos: Int) {
             binding.apply {
