@@ -26,6 +26,9 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_detailFragment_to_scoresFragment"
+            app:destination="@id/scores_fragment" />
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -47,4 +50,13 @@
         android:name="com.ajsherrell.android.quiz_hyperbaric.nav.EditProfileFragment"
         android:label="@string/add_user"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/scores_fragment"
+        android:name="com.ajsherrell.android.quiz_hyperbaric.nav.ScoresFragment"
+        android:label="Quiz Score"
+        tools:layout="@layout/fragment_scores" >
+        <action
+            android:id="@+id/action_scores_fragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 </navigation>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,11 +60,17 @@ class DetailFragment : Fragment() {
         }
 
         dBinding.next.setOnClickListener {
-            //todo: navigate to high score fragment if done with quiz.
+            //launchScoresFragment()
+            Toast.makeText(context,"Next button was clicked", Toast.LENGTH_SHORT).show()
         }
 
         rootView = binding.root
         return rootView
+    }
+
+    private fun launchScoresFragment() {
+        val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment()
+        findNavController().navigate(action)
     }
 }
 
