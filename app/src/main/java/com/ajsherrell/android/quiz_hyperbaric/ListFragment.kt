@@ -30,7 +30,6 @@ class ListFragment : Fragment() {
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
-            Toast.makeText(context,"Position $position was clicked", Toast.LENGTH_SHORT).show()
             Timber.d("Position clicked: $position!!!")
             launchDetailFragment(position)
         }

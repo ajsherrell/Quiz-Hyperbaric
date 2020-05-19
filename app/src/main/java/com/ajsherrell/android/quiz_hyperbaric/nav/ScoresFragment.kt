@@ -30,8 +30,8 @@ class ScoresFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.homeButton.setOnClickListener {
-            Toast.makeText(context,"Home button was clicked", Toast.LENGTH_SHORT).show()
             Timber.d("Home button was clicked!!!")
+            launchListFragment()
         }
 
         rootView = binding.root

@@ -28,8 +28,8 @@ class DetailFragment : Fragment() {
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
-            Toast.makeText(context,"Position $position was clicked", Toast.LENGTH_SHORT).show()
-            Timber.d("Position clicked: $position!!!")
+            launchScoresFragment()
+            Timber.d("Next button was clicked at position $position")
         }
     })
 
@@ -57,12 +57,6 @@ class DetailFragment : Fragment() {
         binding.detailRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = quizListAdapter
-        }
-
-        dBinding.next.setOnClickListener {
-            //launchScoresFragment()
-            Toast.makeText(context,"Next button was clicked", Toast.LENGTH_SHORT).show()
-            Timber.d("Next button was clicked!!!")
         }
 
         rootView = binding.root
