@@ -13,7 +13,7 @@ import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import java.lang.IllegalArgumentException
 
 // used help from: https://medium.com/@ivancse.58/android-and-kotlin-recyclerview-with-multiple-view-types-65285a254393
-class QuizListAdapter (val clickListener: QuizListClickListener)
+class QuizListAdapter (private val clickListener: QuizListClickListener)
     : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private var dataList: List<Any> = listOf()

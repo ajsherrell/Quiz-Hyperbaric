@@ -52,6 +52,10 @@ class DetailFragment : Fragment() {
             quizListAdapter.notifyDataSetChanged()
             dBinding.q = it[0].questions[0]
             Timber.d("!!! it = ${it[0].questions[0]}")
+
+            if (index == it[0].questions.size - 1) {
+                dBinding.next.text = getString(R.string.submit) //not working
+            }
         })
 
         binding.detailRecyclerView.apply {

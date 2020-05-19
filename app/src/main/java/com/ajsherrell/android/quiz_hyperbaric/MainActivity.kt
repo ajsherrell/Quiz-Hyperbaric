@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -91,3 +92,4 @@ import java.lang.IllegalArgumentException
          binding.navigationView.addHeaderView(navHeaderBinding.root)
      }
 }
+

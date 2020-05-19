@@ -30,8 +30,9 @@
     <string name="enter_your_user_name">Enter your user name...</string>
     <string name="add_a_user">Add a user</string>
     <string name="add_user">Add User</string>
-    <string name="title">Title</string>
     <string name="enter_your_title">Enter your title...</string>
     <string name="score_text">This is the total score from an individual quiz when the submit button is pressed. Will say pass or fail and have the user\'s name and title.</string>
     <string name="home">Home</string>
+    <string name="title">Title</string>
+    <string name="submit">Submit</string>
 </resources>
