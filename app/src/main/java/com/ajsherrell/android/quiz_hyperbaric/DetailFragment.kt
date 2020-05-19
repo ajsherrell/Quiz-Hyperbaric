@@ -10,12 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
 
 class DetailFragment : Fragment() {
@@ -28,7 +31,7 @@ class DetailFragment : Fragment() {
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
-            launchScoresFragment()
+//            launchScoresFragment()
             Timber.d("Next button was clicked at position $position")
         }
     })
@@ -54,13 +57,23 @@ class DetailFragment : Fragment() {
             Timber.d("!!! it = ${it[0].questions[0]}")
 
             if (index == it[0].questions.size - 1) {
-                dBinding.next.text = getString(R.string.submit) //not working
+                //todo: get score and pass to ScoresFragment
             }
         })
+
+        model.loading.observe(viewLifecycleOwner, Observer {
+            displayLoading(it == true)
+        })
+
+        binding.submit.setOnClickListener {
+            launchScoresFragment()
+        }
 
         binding.detailRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = quizListAdapter
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            //used: https://stackoverflow.com/questions/57886100/how-to-add-item-divider-for-recyclerview-in-kotlin
         }
 
         rootView = binding.root
@@ -70,6 +83,10 @@ class DetailFragment : Fragment() {
     private fun launchScoresFragment() {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment()
         findNavController().navigate(action)
+    }
+
+    private fun displayLoading(loading: Boolean) {
+        progress_bar_detail.visibility = if (loading) View.VISIBLE else View.GONE
     }
 }
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ajsherrell.android.quiz_hyperbaric.R
 
-class ScreenSlidePageFragment: Fragment() {
+class ScreenSlidePageFragment: Fragment() { //todo: switch to viewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater,

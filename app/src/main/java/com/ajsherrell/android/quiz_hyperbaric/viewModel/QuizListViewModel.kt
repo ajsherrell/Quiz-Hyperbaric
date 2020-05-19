@@ -48,11 +48,14 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     fun getQData() { //sets up the DetailFragment
         try {
             scope.launch {
+                mutableLoading.value = true
                 val qData = repo.getQData()
                 _catLiveData.value = qData
             }
         } catch (e: IllegalThreadStateException) {
             Timber.e("$e")
+        } finally {
+            mutableLoading.value = false
         }
     }
 

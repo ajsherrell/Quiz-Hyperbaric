@@ -37,7 +37,7 @@ class QuizListAdapter (private val clickListener: QuizListClickListener)
                     parent,
                     false
                 )
-                DetailHolder(binding, clickListener)
+                DetailHolder(binding)
             }
             else -> throw IllegalArgumentException("Invalid binding type!!!")
         }
@@ -84,15 +84,13 @@ class QuizListAdapter (private val clickListener: QuizListClickListener)
     }
 
     inner class DetailHolder(
-        private val binding: DetailItemBinding,
-        private val clickListener: QuizListClickListener
+        private val binding: DetailItemBinding
     ) : BaseViewHolder<Questions>(binding.root) {
 
         override fun bind(item: Questions, pos: Int) {
             binding.apply {
                 q = item
                 index = pos
-                onNextButtonClicked = clickListener
                 executePendingBindings()
             }
         }

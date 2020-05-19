@@ -14,14 +14,11 @@
         <variable
             name="q"
             type="com.ajsherrell.android.quiz_hyperbaric.model.Questions" />
-        <variable
-            name="onNextButtonClicked"
-            type="com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
         <TextView
@@ -32,69 +29,63 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
             android:text="@{q.questionText}"
             android:textColor="@android:color/white"
+            android:textAlignment="center"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.561"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.366"
             tools:text="@string/sampleQuestion" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/next"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="168dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionTextView"
-            app:layout_constraintVertical_bias="0.49">
+            app:layout_constraintStart_toStartOf="parent">
 
             <RadioButton
                 android:id="@+id/radioButton1"
+                style="@style/radio_text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/radio_text_style"
                 android:text="@{q.options[0]}"
                 tools:text="@string/one" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
+                style="@style/radio_text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/radio_text_style"
                 android:text="@{q.options[1]}"
                 tools:text="@string/two" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
+                style="@style/radio_text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/radio_text_style"
                 android:text="@{q.options[2]}"
                 tools:text="@string/three" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
+                style="@style/radio_text_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/radio_text_style"
                 android:text="@{q.options[3]}"
                 tools:text="@string/four" />
         </RadioGroup>
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            style="@style/radio_text_style"
-            android:onClick="@{() -> onNextButtonClicked.onItemClicked(index)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/next"
-            tools:text="@string/next" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

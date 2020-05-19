@@ -10,7 +10,7 @@ import com.ajsherrell.android.quiz_hyperbaric.nav.ScreenSlidePageFragment
 
 private const val ITEM_COUNT = 5
 
-class ScreenSlidePagerActivity : FragmentActivity() {
+class ScreenSlidePagerActivity : FragmentActivity() { //todo: switch to viewPager2
 
     private lateinit var viewPager: ViewPager2
 

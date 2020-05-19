@@ -11,3 +11,5 @@
         android:text="@string/sampleQuestion" />
 
 </ScrollView>
+
+<!--switch to viewPager2-->
