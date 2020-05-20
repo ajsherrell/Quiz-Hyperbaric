@@ -72,9 +72,15 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private fun onRetrieveDataError() {
         errorMessage.value = R.string.error_message
+        cancelRequest()
     }
 
     private fun onRetrieveDataFinish() {
         mutableLoading.value = View.GONE
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cancelRequest()
     }
 }

@@ -1,5 +1,6 @@
 package com.ajsherrell.android.quiz_hyperbaric.utils
 
+//not used for anything yet
 data class Result<out T>(val status: Status, val data: T?, val message: String?) {
 
     enum class Status {

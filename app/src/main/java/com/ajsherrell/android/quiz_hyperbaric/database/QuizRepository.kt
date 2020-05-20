@@ -35,7 +35,7 @@ open class BaseRepository {
         when(result) {
             is Output.Success ->
                 output = result.output
-            is Output.Error -> Timber.e("The $error and the ${result.exception}")
+            is Output.Error -> Timber.e("!!!The $error and the ${result.exception}")
         }
         return output
     }
