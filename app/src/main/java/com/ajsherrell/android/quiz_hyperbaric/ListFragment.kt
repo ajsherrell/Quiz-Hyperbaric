@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -18,6 +17,7 @@ import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class ListFragment : Fragment() {
 
@@ -51,9 +51,9 @@ class ListFragment : Fragment() {
             Timber.d("!!!it = ${it.category}")
         })
 
-        model.loading.observe(viewLifecycleOwner, Observer {
-            displayLoading(it == true)
-        })
+//        model.loading.observe(viewLifecycleOwner, Observer {
+//            displayLoading(it == true)
+//        })
 
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)

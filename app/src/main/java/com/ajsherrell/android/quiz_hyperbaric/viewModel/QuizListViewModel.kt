@@ -1,6 +1,7 @@
 package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
@@ -19,8 +20,9 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
-    private val mutableLoading = MutableLiveData<Boolean>().apply { value = false }
-    val loading: LiveData<Boolean> = mutableLoading
+//    private val mutableLoading = MutableLiveData<Boolean>().apply { value = false }
+//    val loading: LiveData<Boolean> = mutableLoading
+    val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
 
 
     private val _quizLiveData: MutableLiveData<Response> = MutableLiveData()
@@ -34,28 +36,28 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     fun getQuizData() { //sets up the ListFragment
         try {
             scope.launch {
-                mutableLoading.value = true
+                mutableLoading.value = View.VISIBLE
                 val quizData = repo.getQuizData()
                 _quizLiveData.value = quizData
             }
         } catch (e: IllegalThreadStateException) {
             Timber.e("$e")
         } finally {
-            mutableLoading.value = false
+            mutableLoading.value = View.GONE
         }
     }
 
     fun getQData() { //sets up the DetailFragment
         try {
             scope.launch {
-                mutableLoading.value = true
+                mutableLoading.value = View.VISIBLE
                 val qData = repo.getQData()
                 _catLiveData.value = qData
             }
         } catch (e: IllegalThreadStateException) {
             Timber.e("$e")
         } finally {
-            mutableLoading.value = false
+            mutableLoading.value = View.GONE
         }
     }
 

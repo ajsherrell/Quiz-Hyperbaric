@@ -61,9 +61,9 @@ class DetailFragment : Fragment() {
             }
         })
 
-        model.loading.observe(viewLifecycleOwner, Observer {
-            displayLoading(it == true)
-        })
+//        model.loading.observe(viewLifecycleOwner, Observer {
+//            displayLoading(it == true)
+//        })
 
         binding.submit.setOnClickListener {
             launchScoresFragment()
