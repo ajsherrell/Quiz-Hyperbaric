@@ -3,6 +3,7 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 import android.app.Application
 import android.view.View
 import androidx.lifecycle.*
+import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
@@ -20,10 +21,10 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
-//    private val mutableLoading = MutableLiveData<Boolean>().apply { value = false }
-//    val loading: LiveData<Boolean> = mutableLoading
-    val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
+    val errorMessage: MutableLiveData<Int?> = MutableLiveData()
+    val errorClickListener = View.OnClickListener { getQuizData() }
 
+    val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
 
     private val _quizLiveData: MutableLiveData<Response> = MutableLiveData()
     val quizLiveData: LiveData <Response>
@@ -36,14 +37,15 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     fun getQuizData() { //sets up the ListFragment
         try {
             scope.launch {
-                mutableLoading.value = View.VISIBLE
+                onRetrieveDataSuccess()
                 val quizData = repo.getQuizData()
                 _quizLiveData.value = quizData
             }
         } catch (e: IllegalThreadStateException) {
-            Timber.e("$e")
+            onRetrieveDataError()
+            Timber.e("$e !!! $errorMessage")
         } finally {
-            mutableLoading.value = View.GONE
+            onRetrieveDataFinish()
         }
     }
 
@@ -57,9 +59,22 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         } catch (e: IllegalThreadStateException) {
             Timber.e("$e")
         } finally {
-            mutableLoading.value = View.GONE
+            onRetrieveDataFinish()
         }
     }
 
     fun cancelRequest() = coroutineContext.cancel() //todo: where to call?
+
+    private fun onRetrieveDataSuccess() {
+        mutableLoading.value = View.VISIBLE
+        errorMessage.value = null
+    }
+
+    private fun onRetrieveDataError() {
+        errorMessage.value = R.string.error_message
+    }
+
+    private fun onRetrieveDataFinish() {
+        mutableLoading.value = View.GONE
+    }
 }

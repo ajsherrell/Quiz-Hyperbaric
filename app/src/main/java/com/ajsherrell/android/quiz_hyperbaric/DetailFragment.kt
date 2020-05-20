@@ -31,8 +31,7 @@ class DetailFragment : Fragment() {
 
     private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
         override fun onItemClicked(position: Int) {
-//            launchScoresFragment()
-            Timber.d("Next button was clicked at position $position")
+            Timber.d("Submit button was clicked at position $position")
         }
     })
 
@@ -56,14 +55,10 @@ class DetailFragment : Fragment() {
             dBinding.q = it[0].questions[0]
             Timber.d("!!! it = ${it[0].questions[0]}")
 
-            if (index == it[0].questions.size - 1) {
-                //todo: get score and pass to ScoresFragment
-            }
+//            if (index == it[0].questions.size - 1) {
+//                //todo: get score and pass to ScoresFragment
+//            }
         })
-
-//        model.loading.observe(viewLifecycleOwner, Observer {
-//            displayLoading(it == true)
-//        })
 
         binding.submit.setOnClickListener {
             launchScoresFragment()
@@ -85,9 +80,6 @@ class DetailFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun displayLoading(loading: Boolean) {
-        progress_bar_detail.visibility = if (loading) View.VISIBLE else View.GONE
-    }
 }
 
 
