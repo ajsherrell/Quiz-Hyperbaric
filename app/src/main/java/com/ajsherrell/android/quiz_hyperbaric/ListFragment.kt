@@ -44,6 +44,7 @@ class ListFragment : Fragment() {
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)
             adapter = quizListAdapter
+            hasFixedSize()
         }
 
         model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
@@ -55,7 +56,6 @@ class ListFragment : Fragment() {
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it.category)
             quizListAdapter.notifyDataSetChanged()
-            Timber.d("!!!it = ${it.category}")
         })
 
         rootView = binding.root

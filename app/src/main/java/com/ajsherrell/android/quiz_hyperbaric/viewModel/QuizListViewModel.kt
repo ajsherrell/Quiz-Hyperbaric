@@ -2,6 +2,7 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
 import android.view.View
+import android.widget.RadioButton
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
@@ -63,7 +64,13 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun cancelRequest() = coroutineContext.cancel() //todo: where to call?
+    var score = 0
+    var questionBank = 0
+    var currentQuestionId = 0
+    var answer = ""
+    var selectedAnswerText = ""
+
+    private fun cancelRequest() = coroutineContext.cancel()
 
     private fun onRetrieveDataSuccess() {
         mutableLoading.value = View.VISIBLE
