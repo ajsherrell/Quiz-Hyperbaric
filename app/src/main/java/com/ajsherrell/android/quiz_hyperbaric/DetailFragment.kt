@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,12 +18,7 @@ import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import kotlinx.android.synthetic.main.detail_item.*
-import kotlinx.android.synthetic.main.detail_item.view.*
-import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import timber.log.Timber
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 class DetailFragment : Fragment() {
 
@@ -35,6 +29,7 @@ class DetailFragment : Fragment() {
     private var selectedAnswer = ""
 
     private lateinit var binding: FragmentDetailBinding
+    private lateinit var dBinding: DetailItemBinding
     private lateinit var rootView: View
 
     private val model: QuizListViewModel by navGraphViewModels(R.id.nav_graph)
@@ -49,27 +44,31 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
+        dBinding = DetailItemBinding.inflate(inflater, container, false)
         val index = args.position
         binding.lifecycleOwner = this
+        dBinding.lifecycleOwner = this
 
         model.getQData()
 
+        dBinding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val rb: RadioButton? = view?.findViewById(checkedId)
+            Toast.makeText(context, "On rb text = ${rb?.text}", Toast.LENGTH_SHORT).show()
+            Timber.d("!!!On rb text = ${rb?.text}")
+        }
+
         quizListAdapter = QuizListAdapter(object : QuizListClickListener {
             override fun onItemClicked(position: Int) {
-                val radio: RadioButton? = view?.findViewById(radioGroup.checkedRadioButtonId)
-                Toast.makeText(context, "On radio clicked: ${radio?.text}", Toast.LENGTH_SHORT).show()
-
-                radioGroup.setOnCheckedChangeListener { _, checkedId ->
-                    val rb: RadioButton? = view?.findViewById(checkedId)
-                    Toast.makeText(context, "On rb text = ${rb?.text}", Toast.LENGTH_SHORT).show()
-                }
+                val radio: RadioButton? = view?.findViewById(dBinding.radioGroup.checkedRadioButtonId)
+                Toast.makeText(context, "On radio clicked: ${radio?.text.toString()}", Toast.LENGTH_SHORT).show()
+                Timber.d("!!!On radio clicked: ${radio?.text}")
             }
         })
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it[index].questions)
             quizListAdapter.notifyDataSetChanged()
-//            binding.detailRecyclerView.questionTextView = it[index].questions[0]
+            dBinding.q = it[index].questions[0]
 
             //ID
             questionId = model.currentQuestionId
@@ -113,34 +112,6 @@ class DetailFragment : Fragment() {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment()
         findNavController().navigate(action)
     }
-
-//    fun onRadioButtonClicked(view: View) {
-//        if (view is RadioButton) {
-//            //is the button now checked?
-//            val checked = view.isChecked
-//
-//            //check which radio button was clicked
-//            when (view.getId()) {
-//                R.id.radioButton1 ->
-//                    if (checked) {
-//                        selectedAnswer
-//                    }
-//                R.id.radioButton2 ->
-//                    if (checked) {
-//                        selectedAnswer
-//                    }
-//                R.id.radioButton3 ->
-//                    if (checked) {
-//                        selectedAnswer
-//                    }
-//                R.id.radioButton4 ->
-//                    if (checked) {
-//                        selectedAnswer
-//                    }
-//            }
-//        }
-//    }
-
 }
 
 
