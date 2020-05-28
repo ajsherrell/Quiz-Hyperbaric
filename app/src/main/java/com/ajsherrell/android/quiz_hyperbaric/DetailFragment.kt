@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
+import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,15 +18,18 @@ import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
+import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import kotlinx.android.synthetic.main.detail_item.*
+import kotlinx.android.synthetic.main.fragment_detail.*
 import timber.log.Timber
 
 class DetailFragment : Fragment() {
 
     private var questionId = 0
     private var totalScore = 0
-    private var bank = 0
+    private var bank = listOf<Questions>()
+    private var currentIndex = 0
     private var correctAnswer = ""
     private var selectedAnswer = ""
 
@@ -70,24 +75,21 @@ class DetailFragment : Fragment() {
             //ID
             questionId = model.currentQuestionId
             questionId = it[index].questions[0].id
-            Timber.d("!!!questionId is $questionId")
 
             //score
             totalScore = model.score
-            //todo: get user's score
 
             //answer
             correctAnswer = model.answer
             correctAnswer = it[index].questions[0].answer
-            Timber.d("!!!correctAnswer is $correctAnswer")
 
             //user's selected answer
             selectedAnswer = model.selectedAnswerText
 
             //list of questions
             bank = model.questionBank
-            bank = it[index].questions.size
-            Timber.d("!!!bank is $bank")
+            bank = it[index].questions
+
 
         })
 
@@ -106,18 +108,30 @@ class DetailFragment : Fragment() {
         return rootView
     }
 
+    private fun moveToNext() {
+        currentIndex = (currentIndex + 1) % bank.size
+    }
+
     private fun launchScoresFragment() {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment()
         findNavController().navigate(action)
     }
 
+    //used some of: https://android--code.blogspot.com/2018/02/android-kotlin-radiogroup-and.html
     private fun onRadioButtonClicked() {
         val selectedId = radioGroup.checkedRadioButtonId
         val radioButton: RadioButton = radioGroup.findViewById(selectedId)
-        val selectedText: String = radioButton.text as String
+        if (radioButton.isChecked) {
+            for (i in radioGroup.children) {
+                i.isEnabled = false
+                moveToNext()//not working right
+            }
+            val selectedText: String = radioButton.text as String
+            if (selectedText == correctAnswer) totalScore += 1
 
-        if (selectedText == correctAnswer) totalScore+=1
-        Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer.")
+            Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer.")
+        }
+        Toast.makeText(context, "Score is $totalScore.", Toast.LENGTH_SHORT).show()
     }
 
 }

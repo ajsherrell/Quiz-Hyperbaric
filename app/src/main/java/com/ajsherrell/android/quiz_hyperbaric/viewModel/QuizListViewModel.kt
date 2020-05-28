@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
+import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import kotlinx.coroutines.*
@@ -65,7 +66,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     var score = 0
-    var questionBank = 0
+    var questionBank = listOf<Questions>()
     var currentQuestionId = 0
     var answer = ""
     var selectedAnswerText = ""
