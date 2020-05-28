@@ -69,6 +69,8 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var currentQuestionId = 0
     var answer = ""
     var selectedAnswerText = ""
+    var selectedId = 0
+    var isCorrect = false
 
     private fun cancelRequest() = coroutineContext.cancel()
 

@@ -40,6 +40,7 @@ class ListFragment : Fragment() {
     ): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        binding.model = model
 
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,6 +17,7 @@ import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.DetailItemBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import kotlinx.android.synthetic.main.detail_item.*
 import timber.log.Timber
 
 class DetailFragment : Fragment() {
@@ -31,6 +31,7 @@ class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private lateinit var dBinding: DetailItemBinding
     private lateinit var rootView: View
+    private lateinit var dRootView: View
 
     private val model: QuizListViewModel by navGraphViewModels(R.id.nav_graph)
 
@@ -48,20 +49,16 @@ class DetailFragment : Fragment() {
         val index = args.position
         binding.lifecycleOwner = this
         dBinding.lifecycleOwner = this
+        rootView = binding.root
+        dRootView = dBinding.root
+        binding.model = model
+        dBinding.model = model
 
         model.getQData()
 
-        dBinding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            val rb: RadioButton? = view?.findViewById(checkedId)
-            Toast.makeText(context, "On rb text = ${rb?.text}", Toast.LENGTH_SHORT).show()
-            Timber.d("!!!On rb text = ${rb?.text}")
-        }
-
         quizListAdapter = QuizListAdapter(object : QuizListClickListener {
             override fun onItemClicked(position: Int) {
-                val radio: RadioButton? = view?.findViewById(dBinding.radioGroup.checkedRadioButtonId)
-                Toast.makeText(context, "On radio clicked: ${radio?.text.toString()}", Toast.LENGTH_SHORT).show()
-                Timber.d("!!!On radio clicked: ${radio?.text}")
+                onRadioButtonClicked()
             }
         })
 
@@ -73,6 +70,7 @@ class DetailFragment : Fragment() {
             //ID
             questionId = model.currentQuestionId
             questionId = it[index].questions[0].id
+            Timber.d("!!!questionId is $questionId")
 
             //score
             totalScore = model.score
@@ -81,14 +79,15 @@ class DetailFragment : Fragment() {
             //answer
             correctAnswer = model.answer
             correctAnswer = it[index].questions[0].answer
+            Timber.d("!!!correctAnswer is $correctAnswer")
 
             //user's selected answer
             selectedAnswer = model.selectedAnswerText
-            //todo: get user's answer
 
             //list of questions
             bank = model.questionBank
             bank = it[index].questions.size
+            Timber.d("!!!bank is $bank")
 
         })
 
@@ -104,7 +103,6 @@ class DetailFragment : Fragment() {
             //used: https://stackoverflow.com/questions/57886100/how-to-add-item-divider-for-recyclerview-in-kotlin
         }
 
-        rootView = binding.root
         return rootView
     }
 
@@ -112,6 +110,16 @@ class DetailFragment : Fragment() {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment()
         findNavController().navigate(action)
     }
+
+    private fun onRadioButtonClicked() {
+        val selectedId = radioGroup.checkedRadioButtonId
+        val radioButton: RadioButton = radioGroup.findViewById(selectedId)
+        val selectedText: String = radioButton.text as String
+
+        if (selectedText == correctAnswer) totalScore+=1
+        Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer.")
+    }
+
 }
 
 
