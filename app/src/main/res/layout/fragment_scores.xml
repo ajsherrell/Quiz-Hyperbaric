@@ -9,17 +9,19 @@
         tools:context=".nav.ScoresFragment">
 
         <TextView
+            android:id="@+id/score_text"
+            style="@style/nav_fragment_text_style"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/score_text"
+            android:contentDescription="@string/score_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            style="@style/nav_fragment_text_style"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/score_text" />
 
         <Button
             android:id="@+id/homeButton"

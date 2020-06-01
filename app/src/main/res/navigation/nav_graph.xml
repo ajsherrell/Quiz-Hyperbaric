@@ -21,7 +21,7 @@
         android:id="@+id/detailFragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.DetailFragment"
         android:label="Quiz"
-        tools:layout="@layout/detail_item" >
+        tools:layout="@layout/fragment_detail" >
         <argument
             android:name="position"
             app:argType="integer"
@@ -58,5 +58,9 @@
         <action
             android:id="@+id/action_scores_fragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

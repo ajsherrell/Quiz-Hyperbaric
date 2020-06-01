@@ -30,10 +30,13 @@
     <string name="enter_your_user_name">Enter your user name...</string>
     <string name="add_a_user">Add a user</string>
     <string name="add_user">Add User</string>
-    <string name="enter_your_title">Enter your title...</string>
-    <string name="score_text">This is the total score from an individual quiz when the submit button is pressed. Will say pass or fail and have the user\'s name and title.</string>
+    <string name="enter_your_title">Enter your title…</string>
+    <string name="score_text">Your total score for this quiz: %d</string>
+    <string name="win">You win! \n\nYour final score is: %d</string>
+    <string name="lose">You lose! \n\nYour final score is: %d</string>
     <string name="home">Home</string>
     <string name="title">Title</string>
     <string name="submit">Submit</string>
     <string name="error_message">An error occurred while loading the data</string>
+    <string name="correct_answer">Correct answer is: %s.</string>
 </resources>
