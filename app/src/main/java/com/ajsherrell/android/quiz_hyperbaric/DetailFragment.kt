@@ -107,11 +107,11 @@ class DetailFragment : Fragment() {
                 selectedText = radioButton.text as String
                 answered = true
                 group.isEnabled = false
-            }
-            if (selectedText == correctAnswer) {
-                totalScore += 1
-            } else {
-                binding.correctAnswerText.visibility = View.VISIBLE
+                if (selectedText == correctAnswer) {
+                    totalScore += 1
+                } else {
+                    binding.correctAnswerText.visibility = View.VISIBLE
+                }
             }
 
             Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer. SelectedId = $checkedId.")
