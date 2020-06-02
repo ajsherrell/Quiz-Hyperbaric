@@ -83,13 +83,14 @@ class DetailFragment : Fragment() {
 
         //radio button selection
         radioGroup = binding.radioGroup
+
         selectRadioButton()
 
         binding.next.setOnClickListener {
             nextButton()
-            if (currentIndex == lastIndex) {
-                launchScoresFragment(totalScore)
-            }
+        }
+        binding.submit.setOnClickListener {
+            launchScoresFragment(totalScore)
         }
 
         return rootView
@@ -104,13 +105,14 @@ class DetailFragment : Fragment() {
 
             if (isChecked) {
                 selectedText = radioButton.text as String
+                answered = true
+                group.isEnabled = false
             }
             if (selectedText == correctAnswer) {
                 totalScore += 1
             } else {
                 binding.correctAnswerText.visibility = View.VISIBLE
             }
-
 
             Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer. SelectedId = $checkedId.")
             Toast.makeText(context, "Score is ${totalScore}.", Toast.LENGTH_SHORT).show()
@@ -119,27 +121,33 @@ class DetailFragment : Fragment() {
     }
 
     private fun nextButton() {
-        radioButton.isChecked = false
-        binding.correctAnswerText.visibility = View.GONE
-        currentIndex = (currentIndex + 1) % bank.size
-        lastIndex = bank.size-1
+        resetButton()
+        updateQuestion()
+        lastIndex = bank.size - 1
         if (currentIndex == lastIndex) {
-            binding.next.text = resources.getString(R.string.submit)
-        } else {
-            updateQuestion()
+            binding.next.visibility = View.GONE
+            binding.submit.visibility = View.VISIBLE
         }
+    }
+
+    private fun resetButton() {
+        radioButton.isChecked = false
+        answered = false
+        radioGroup.isEnabled = true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_INDEX, model.currentIndex)
+        outState.putInt(KEY_INDEX, currentIndex)
         outState.putInt(SCORE, totalScore)
-        outState.putBoolean(IS_ANSWERED, model.isAnswered)
+        outState.putBoolean(IS_ANSWERED, answered)
     }
 
     private fun updateQuestion() {
+        currentIndex = (currentIndex + 1) % bank.size
         binding.q = bank[currentIndex]
         correctAnswer = bank[currentIndex].answer
+        binding.correctAnswerText.visibility = View.GONE
     }
 
     private fun launchScoresFragment(score: Int) {
