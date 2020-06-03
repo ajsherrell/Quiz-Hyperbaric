@@ -33,7 +33,9 @@ class DetailFragment : Fragment() {
     private var correctAnswer = ""
     private var totalScore = 0
     private var currentIndex = 0
-    private var answered = false
+    private lateinit var currentQuestion: Questions
+    private var answers = listOf<String>()
+    private var answered: Boolean = false
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var rootView: View
@@ -63,10 +65,15 @@ class DetailFragment : Fragment() {
             correctAnswer = model.answer
             correctAnswer = it[index].questions[0].answer
 
+            //has question been answered
+            answered = it[index].answered
+
             //list of questions
             bank = model.questionBank
+//            model.shuffleQuestions() //not working
             bank = it[index].questions
-
+//            bank.shuffled() //not working
+//            randomizeQuestions() //not working
         })
 
         //Current index of question bank.
@@ -81,10 +88,19 @@ class DetailFragment : Fragment() {
         answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
         model.isAnswered = answered
 
+//        randomizeQuestions()
+
         //radio button selection
         radioGroup = binding.radioGroup
-
         selectRadioButton()
+
+//        if (!answered) { //answered is not captured
+//            binding.next.visibility = View.GONE
+//            binding.submit.visibility = View.GONE
+//            Toast.makeText(context, "Choose option", Toast.LENGTH_SHORT).show()
+//        } else {
+//            binding.next.visibility = View.VISIBLE
+//        }
 
         binding.next.setOnClickListener {
             nextButton()
@@ -104,14 +120,16 @@ class DetailFragment : Fragment() {
             val isChecked: Boolean = radioButton.isChecked
 
             if (isChecked) {
+                answered = true // not capturing
                 selectedText = radioButton.text as String
-                answered = true
-                group.isEnabled = false
                 if (selectedText == correctAnswer) {
                     totalScore += 1
                 } else {
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
+            } else {
+                answered = false // not working correctly
+                hasAnswered()
             }
 
             Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer. SelectedId = $checkedId.")
@@ -133,7 +151,13 @@ class DetailFragment : Fragment() {
     private fun resetButton() {
         radioButton.isChecked = false
         answered = false
-        radioGroup.isEnabled = true
+    }
+
+    private fun hasAnswered() {
+        if (!answered) {
+            binding.next.isEnabled = false
+            binding.submit.isEnabled = false
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -150,9 +174,26 @@ class DetailFragment : Fragment() {
         binding.correctAnswerText.visibility = View.GONE
     }
 
+    private fun changeOption(radioGroup: RadioGroup) {
+        radioGroup.isEnabled = !radioGroup.isEnabled
+    }
+
     private fun launchScoresFragment(score: Int) {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment(score)
         findNavController().navigate(action)
+    }
+
+    private fun randomizeQuestions() {
+        bank.shuffled()
+        currentIndex = 0
+        setQuestion()
+    }
+
+    private fun setQuestion() {
+        currentQuestion = bank[currentIndex]
+        answers = currentQuestion.options.toMutableList()
+        answers.shuffled()
+
     }
 
 }

@@ -13,6 +13,8 @@ data class Response(
 data class Category(
     @field:Json(name = "title")
     val title: String,
+    @field:Json(name = "answered")
+    val answered: Boolean = false,
     @field:Json(name = "questions")
     val questions: List<Questions> = mutableListOf()
 )

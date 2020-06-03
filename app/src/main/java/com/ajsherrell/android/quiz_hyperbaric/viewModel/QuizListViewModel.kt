@@ -69,12 +69,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var score = 0
     var questionBank = listOf<Questions>()
     var currentIndex = 0
-    var currentQuestionId = 0
     var answer = ""
     var isAnswered: Boolean = false
-    var selectedAnswerText = ""
-    var selectedId = 0
-    var isCorrect = false
+
+    fun shuffleQuestions() {
+        questionBank.shuffled()
+    }
 
     private fun cancelRequest() = coroutineContext.cancel()
 
