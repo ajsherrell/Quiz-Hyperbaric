@@ -92,15 +92,8 @@ class DetailFragment : Fragment() {
 
         //radio button selection
         radioGroup = binding.radioGroup
+        hasAnswered()
         selectRadioButton()
-
-//        if (!answered) { //answered is not captured
-//            binding.next.visibility = View.GONE
-//            binding.submit.visibility = View.GONE
-//            Toast.makeText(context, "Choose option", Toast.LENGTH_SHORT).show()
-//        } else {
-//            binding.next.visibility = View.VISIBLE
-//        }
 
         binding.next.setOnClickListener {
             nextButton()
@@ -120,7 +113,8 @@ class DetailFragment : Fragment() {
             val isChecked: Boolean = radioButton.isChecked
 
             if (isChecked) {
-                answered = true // not capturing
+                answered = true
+                hasAnswered()
                 selectedText = radioButton.text as String
                 if (selectedText == correctAnswer) {
                     totalScore += 1
@@ -128,7 +122,7 @@ class DetailFragment : Fragment() {
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
             } else {
-                answered = false // not working correctly
+                answered = false
                 hasAnswered()
             }
 
@@ -157,6 +151,9 @@ class DetailFragment : Fragment() {
         if (!answered) {
             binding.next.isEnabled = false
             binding.submit.isEnabled = false
+        } else {
+            binding.next.isEnabled = true
+            binding.submit.isEnabled = true
         }
     }
 
