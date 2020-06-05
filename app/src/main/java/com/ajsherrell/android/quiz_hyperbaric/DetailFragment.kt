@@ -112,6 +112,7 @@ class DetailFragment : Fragment() {
                 if (selectedText == correctAnswer) {
                     totalScore += 1
                 } else {
+                    binding.incorrectText.visibility = View.VISIBLE
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
             } else {
@@ -164,6 +165,7 @@ class DetailFragment : Fragment() {
         binding.q = bank[currentIndex]
         correctAnswer = bank[currentIndex].answer
         binding.correctAnswerText.visibility = View.GONE
+        binding.incorrectText.visibility = View.GONE
     }
 
     private fun enableRadioButtons() {
