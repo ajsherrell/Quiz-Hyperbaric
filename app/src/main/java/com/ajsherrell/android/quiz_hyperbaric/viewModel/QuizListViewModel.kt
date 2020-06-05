@@ -2,7 +2,6 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
 import android.view.View
-import android.widget.RadioButton
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
@@ -71,10 +70,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var currentIndex = 0
     var answer = ""
     var isAnswered: Boolean = false
-
-    fun shuffleQuestions() {
-        questionBank.shuffled()
-    }
 
     private fun cancelRequest() = coroutineContext.cancel()
 

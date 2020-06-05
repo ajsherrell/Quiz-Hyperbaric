@@ -13,8 +13,6 @@ data class Response(
 data class Category(
     @field:Json(name = "title")
     val title: String,
-    @field:Json(name = "answered")
-    val answered: Boolean = false,
     @field:Json(name = "questions")
     val questions: List<Questions> = mutableListOf()
 )
@@ -26,7 +24,11 @@ data class Questions(
     @field:Json(name = "answer")
     val answer: String,
     @field:Json(name = "options")
-    val options: List<String> = mutableListOf(),
+    val options: List<String>,
+    @field:Json(name = "answered")
+    val answered: Boolean = false,
     @field:Json(name = "questionText")
     val questionText: String
-)
+) {
+    var randomAnswers = options.shuffled()
+}

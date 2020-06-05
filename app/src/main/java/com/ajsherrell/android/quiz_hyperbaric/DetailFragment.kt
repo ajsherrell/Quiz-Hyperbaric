@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -58,22 +56,19 @@ class DetailFragment : Fragment() {
         model.getQData()
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
-            //initial question
-            binding.q = it[index].questions[0]
-
             //answer
             correctAnswer = model.answer
-            correctAnswer = it[index].questions[0].answer
-
-            //has question been answered
-            answered = it[index].answered
 
             //list of questions
             bank = model.questionBank
-//            model.shuffleQuestions() //not working
             bank = it[index].questions
-//            bank.shuffled() //not working
-//            randomizeQuestions() //not working
+            bank.shuffled()
+            for (i in bank) {
+                currentQuestion = i
+                correctAnswer = i.answer
+                answered = i.answered
+                binding.q = currentQuestion
+            }
         })
 
         //Current index of question bank.
@@ -87,8 +82,6 @@ class DetailFragment : Fragment() {
         //has question been answered
         answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
         model.isAnswered = answered
-
-//        randomizeQuestions()
 
         //radio button selection
         radioGroup = binding.radioGroup
@@ -149,9 +142,11 @@ class DetailFragment : Fragment() {
 
     private fun hasAnswered() {
         if (!answered) {
+            enableRadioButtons()
             binding.next.isEnabled = false
             binding.submit.isEnabled = false
         } else {
+            disableRadioButtons()
             binding.next.isEnabled = true
             binding.submit.isEnabled = true
         }
@@ -171,26 +166,23 @@ class DetailFragment : Fragment() {
         binding.correctAnswerText.visibility = View.GONE
     }
 
-    private fun changeOption(radioGroup: RadioGroup) {
-        radioGroup.isEnabled = !radioGroup.isEnabled
+    private fun enableRadioButtons() {
+        binding.radioButton1.isEnabled = true
+        binding.radioButton2.isEnabled = true
+        binding.radioButton3.isEnabled = true
+        binding.radioButton4.isEnabled = true
+    }
+
+    private fun disableRadioButtons() {
+        binding.radioButton1.isEnabled = false
+        binding.radioButton2.isEnabled = false
+        binding.radioButton3.isEnabled = false
+        binding.radioButton4.isEnabled = false
     }
 
     private fun launchScoresFragment(score: Int) {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment(score)
         findNavController().navigate(action)
-    }
-
-    private fun randomizeQuestions() {
-        bank.shuffled()
-        currentIndex = 0
-        setQuestion()
-    }
-
-    private fun setQuestion() {
-        currentQuestion = bank[currentIndex]
-        answers = currentQuestion.options.toMutableList()
-        answers.shuffled()
-
     }
 
 }

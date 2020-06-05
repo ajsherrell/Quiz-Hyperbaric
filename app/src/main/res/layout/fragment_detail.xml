@@ -63,7 +63,7 @@
                                     style="@style/radio_text_style"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{q.options[0]}"
+                                    android:text="@{q.randomAnswers[0]}"
                                     tools:text="@string/one" />
 
                                 <RadioButton
@@ -71,7 +71,7 @@
                                     style="@style/radio_text_style"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{q.options[1]}"
+                                    android:text="@{q.randomAnswers[1]}"
                                     tools:text="@string/two" />
 
                                 <RadioButton
@@ -79,7 +79,7 @@
                                     style="@style/radio_text_style"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{q.options[2]}"
+                                    android:text="@{q.randomAnswers[2]}"
                                     tools:text="@string/three" />
 
                                 <RadioButton
@@ -87,7 +87,7 @@
                                     style="@style/radio_text_style"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@{q.options[3]}"
+                                    android:text="@{q.randomAnswers[3]}"
                                     tools:text="@string/four" />
                         </RadioGroup>
 
