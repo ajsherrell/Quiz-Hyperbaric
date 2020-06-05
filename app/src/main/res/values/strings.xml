@@ -22,8 +22,7 @@
     Hyperbaric Tech exam.</string>
     <string name="resources_text">These are links to resources to further improve knowledge of
     hyperbarics.</string>
-    <string name="high_score_text">The is the high score page. It will have the user\'s name, and a list
-    of their scores.</string>
+    <string name="high_score_text">High Scores!</string>
     <string name="list_of_categories">List of categories</string>
     <string name="name">Name</string>
     <string name="save">Save</string>

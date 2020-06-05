@@ -40,9 +40,8 @@ class EditProfileFragment : DialogFragment() {
         }
 
         saveButton.setOnClickListener {
-            //todo: save the profile through the viewModel to sharedprefs
-            //ViewModel.saveProfile()
-            //      dismiss()
+            model.saveProfile()
+            dismiss()
         }
     }
 

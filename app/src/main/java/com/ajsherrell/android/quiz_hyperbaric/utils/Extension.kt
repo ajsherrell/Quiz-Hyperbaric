@@ -3,6 +3,7 @@ package com.ajsherrell.android.quiz_hyperbaric.utils
 import android.content.ContextWrapper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ObservableField
 
 fun View.getParentActivity(): AppCompatActivity? {
     var context = this.context
@@ -14,3 +15,5 @@ fun View.getParentActivity(): AppCompatActivity? {
     }
     return null
 }
+
+fun ObservableField<String>.getOrEmpty(): String = this.get() ?: ""

@@ -2,6 +2,7 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
 import android.view.View
+import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
@@ -9,6 +10,9 @@ import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
+import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
+import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
+import com.google.gson.Gson
 import kotlinx.coroutines.*
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
@@ -22,6 +26,28 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     private val scope = CoroutineScope(coroutineContext)
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
+
+    //profile
+    var profileName = ObservableField("")
+    var profileTitle = ObservableField("")
+    private val gson by lazy { Gson() }
+    private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
+
+    fun saveProfile() {
+        sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
+    }
+
+    fun loadProfile() {
+        val profile = sharedPrefs.getProfile()
+        profileName.set(profile.name)
+        profileTitle.set(profile.title)
+    }
+
+    fun hasFullProfile(): Boolean {
+        val profile = sharedPrefs.getProfile()
+        return profile.name.isNotEmpty() && profile.title.isNotEmpty()
+    }
+
 
     val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener { getQuizData() }

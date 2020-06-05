@@ -32,3 +32,5 @@ data class Questions(
 ) {
     var randomAnswers = options.shuffled()
 }
+
+data class Profile(val name: String = "", val title: String = "")
