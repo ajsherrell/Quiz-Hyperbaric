@@ -34,3 +34,6 @@ data class Questions(
 }
 
 data class Profile(val name: String = "", val title: String = "")
+
+data class Scores(val category: String = "", val score: String = "")
+

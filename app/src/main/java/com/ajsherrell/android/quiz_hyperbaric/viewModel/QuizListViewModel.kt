@@ -19,6 +19,13 @@ import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
+    var score = 0
+    var questionBank = listOf<Questions>()
+    var category: Category? = null
+    var currentIndex = 0
+    var answer = ""
+    var isAnswered: Boolean = false
+
     private val job = Job()
 
     private val coroutineContext : CoroutineContext get() = job + Dispatchers.Main
@@ -30,6 +37,11 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     //profile
     var profileName = ObservableField("")
     var profileTitle = ObservableField("")
+
+    //high scores info
+    var scoreCategory = ObservableField("")
+    var scoreNumber = ObservableField(score)
+
     private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
@@ -90,12 +102,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
             onRetrieveDataFinish()
         }
     }
-
-    var score = 0
-    var questionBank = listOf<Questions>()
-    var currentIndex = 0
-    var answer = ""
-    var isAnswered: Boolean = false
 
     private fun cancelRequest() = coroutineContext.cancel()
 

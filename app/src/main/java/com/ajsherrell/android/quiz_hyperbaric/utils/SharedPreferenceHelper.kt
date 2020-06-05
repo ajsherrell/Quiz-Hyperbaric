@@ -2,6 +2,7 @@ package com.ajsherrell.android.quiz_hyperbaric.utils
 
 import android.content.Context
 import com.ajsherrell.android.quiz_hyperbaric.model.Profile
+import com.ajsherrell.android.quiz_hyperbaric.model.Scores
 import com.google.gson.Gson
 
 class SharedPreferenceHelper(context: Context) {
@@ -9,6 +10,7 @@ class SharedPreferenceHelper(context: Context) {
     companion object {
         const val NAME = "quiz_app"
         const val PROFILE = "profile"
+        const val SCORES = "scores"
     }
 
     private val gson by lazy { Gson() }
@@ -27,6 +29,22 @@ class SharedPreferenceHelper(context: Context) {
     fun saveProfile(name: String, title: String) {
         with(sharedPreferences.edit()) {
             putString(PROFILE, gson.toJson(Profile(name, title)))
+            apply()
+        }
+    }
+
+    fun getHighScores(): Scores {
+        val jsonString = sharedPreferences.getString(SCORES, null)
+        return if (jsonString == null) {
+            Scores()
+        } else {
+            gson.fromJson(jsonString, Scores::class.java)
+        }
+    }
+
+    fun saveHighScores(category: String, score: String) {
+        with(sharedPreferences.edit()) {
+            putString(SCORES, gson.toJson(Scores(category, score)))
             apply()
         }
     }

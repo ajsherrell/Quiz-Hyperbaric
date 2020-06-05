@@ -1,5 +1,6 @@
 package com.ajsherrell.android.quiz_hyperbaric
 
+import android.icu.util.ULocale
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListAdapter
 import com.ajsherrell.android.quiz_hyperbaric.adapter.QuizListClickListener
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentListBinding
+import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 class ListFragment : Fragment() {
+
+    private lateinit var category: Category
 
     private var errorSnackbar: Snackbar? = null
 
@@ -57,6 +61,7 @@ class ListFragment : Fragment() {
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it.category)
             quizListAdapter.notifyDataSetChanged()
+            category = it.category[0]
         })
 
         rootView = binding.root
