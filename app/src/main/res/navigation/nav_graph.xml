@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_detailFragment_to_scoresFragment"
             app:destination="@id/scores_fragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_high_score_fragment"
+            app:destination="@id/high_score_fragment" />
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -44,7 +47,16 @@
         android:id="@+id/high_score_fragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.nav.HighScoreFragment"
         android:label="@string/high_score"
-        tools:layout="@layout/fragment_high_score" />
+        tools:layout="@layout/fragment_high_score" >
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
     <dialog
         android:id="@+id/edit_profile_fragment"
         android:name="com.ajsherrell.android.quiz_hyperbaric.nav.EditProfileFragment"

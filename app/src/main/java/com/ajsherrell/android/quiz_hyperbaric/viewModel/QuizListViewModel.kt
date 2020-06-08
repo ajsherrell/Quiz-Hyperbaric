@@ -39,8 +39,8 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var profileTitle = ObservableField("")
 
     //high scores info
-    var scoreCategory = ObservableField("")
-    var scoreNumber = ObservableField(score)
+    var scoreCategory = category?.title
+    var scoreNumber = score.toString()
 
     private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
@@ -49,17 +49,20 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
     }
 
+    fun saveHighScore() {
+        scoreCategory?.let { sharedPrefs.saveHighScores(it, scoreNumber) }
+    }
+
     fun loadProfile() {
         val profile = sharedPrefs.getProfile()
         profileName.set(profile.name)
         profileTitle.set(profile.title)
     }
 
-    fun hasFullProfile(): Boolean {
-        val profile = sharedPrefs.getProfile()
-        return profile.name.isNotEmpty() && profile.title.isNotEmpty()
-    }
-
+//    fun hasFullProfile(): Boolean {
+//        val profile = sharedPrefs.getProfile()
+//        return profile.name.isNotEmpty() && profile.title.isNotEmpty()
+//    }
 
     val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener { getQuizData() }
@@ -101,6 +104,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         } finally {
             onRetrieveDataFinish()
         }
+    }
+
+    fun loadHighScores() {
+        val highScores = sharedPrefs.getHighScores()
+        scoreCategory = highScores.category
+        scoreNumber = highScores.score
     }
 
     private fun cancelRequest() = coroutineContext.cancel()

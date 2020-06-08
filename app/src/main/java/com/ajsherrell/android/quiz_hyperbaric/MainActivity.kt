@@ -70,7 +70,8 @@ import java.lang.IllegalArgumentException
              )
              model = viewModelProvider.get(QuizListViewModel::class.java)
              navHeaderBinding.model = model
-             //todo: loadProfile() from model?.loadProfile()
+             model?.loadProfile()
+             model?.loadHighScores()
          } catch (e: IllegalArgumentException) {
              e.printStackTrace()
          }
