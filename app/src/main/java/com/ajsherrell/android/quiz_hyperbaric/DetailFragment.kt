@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
+import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 import timber.log.Timber
@@ -32,7 +33,7 @@ class DetailFragment : Fragment() {
     private var totalScore = 0
     private var currentIndex = 0
     private lateinit var currentQuestion: Questions
-    private var answers = listOf<String>()
+    private var currentCategory = listOf<Category>()
     private var answered: Boolean = false
 
     private lateinit var binding: FragmentDetailBinding
@@ -59,6 +60,11 @@ class DetailFragment : Fragment() {
             //answer
             correctAnswer = model.answer
 
+            currentCategory = it
+            for (i in currentCategory) {
+                model.scoreCategory = i.title
+            }
+
             //list of questions
             bank = model.questionBank
             bank = it[index].questions
@@ -77,7 +83,7 @@ class DetailFragment : Fragment() {
 
         //score
         totalScore = savedInstanceState?.getInt(SCORE, 0) ?: 0
-        model.score = totalScore
+        model.score = totalScore.toString()
 
         //has question been answered
         answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
@@ -92,6 +98,7 @@ class DetailFragment : Fragment() {
             nextButton()
         }
         binding.submit.setOnClickListener {
+            model.saveHighScore()
             launchScoresFragment(totalScore)
         }
 

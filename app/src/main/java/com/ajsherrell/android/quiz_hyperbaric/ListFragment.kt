@@ -62,6 +62,10 @@ class ListFragment : Fragment() {
             quizListAdapter.updateListItems(it.category)
             quizListAdapter.notifyDataSetChanged()
             category = it.category[0]
+//            for (i in category) {
+//
+//            }
+//            model.scoreCategory = category.title
         })
 
         rootView = binding.root

@@ -39,4 +39,7 @@
     <string name="error_message">An error occurred while loading the data</string>
     <string name="correct_answer">Correct answer is: %s.</string>
     <string name="incorrect_answer">Wrong! The correct answer is: </string>
+    <string name="clear">Clear</string>
+    <string name="no_scores">No scores yet.</string>
+    <string name="zero">0</string>
 </resources>

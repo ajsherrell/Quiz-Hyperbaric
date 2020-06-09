@@ -9,9 +9,9 @@ import com.google.gson.Gson
 class SharedPreferenceHelper(context: Context) {
 
     companion object {
-        const val NAME = "quiz_app"
-        const val PROFILE = "profile"
-        const val SCORES = "scores"
+        const val NAME = "com.ajsherrell.android.quiz_hyperbaric"
+        const val PROFILE = "com.ajsherrell.android.quiz_hyperbaric.utils.profile"
+        const val SCORES = "com.ajsherrell.android.quiz_hyperbaric.utils.scores"
     }
 
     private val gson by lazy { Gson() }
@@ -43,8 +43,11 @@ class SharedPreferenceHelper(context: Context) {
         }
     }
 
-    fun saveHighScores(category: String, score: String) {
-        sharedPreferences.getString(category, score)
+    fun saveHighScores(name: String, title: String) {
+        with(sharedPreferences.edit()) {
+            putString(SCORES, gson.toJson(Scores(name, title)))
+            apply()
+        }
     }
 
 }

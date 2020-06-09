@@ -31,7 +31,7 @@ class ScoresFragment : Fragment() {
     ): View? {
         binding = FragmentScoresBinding.inflate(inflater, container, false)
         val score = args.score
-        model.score = score
+        model.score = score.toString()
         binding.lifecycleOwner = this
 
         if (score >= 3) {

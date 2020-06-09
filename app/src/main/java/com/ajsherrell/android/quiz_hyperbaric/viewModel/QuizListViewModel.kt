@@ -9,6 +9,7 @@ import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
+import com.ajsherrell.android.quiz_hyperbaric.model.Scores
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
 import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
@@ -19,12 +20,14 @@ import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
-    var score = 0
+    lateinit var score: String
     var questionBank = listOf<Questions>()
     var category: Category? = null
     var currentIndex = 0
     var answer = ""
     var isAnswered: Boolean = false
+//    var highScores: MutableList<Scores> = mutableListOf()
+    lateinit var scoreCategory: String
 
     private val job = Job()
 
@@ -38,10 +41,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var profileName = ObservableField("")
     var profileTitle = ObservableField("")
 
-    //high scores info
-    var scoreCategory = category?.title
-    var scoreNumber = score.toString()
-
     private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
@@ -50,13 +49,19 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun saveHighScore() {
-        scoreCategory?.let { sharedPrefs.saveHighScores(it, scoreNumber) }
+        sharedPrefs.saveHighScores(scoreCategory, score)
     }
 
     fun loadProfile() {
         val profile = sharedPrefs.getProfile()
         profileName.set(profile.name)
         profileTitle.set(profile.title)
+    }
+
+    fun loadHighScores() {
+        val highScores = sharedPrefs.getHighScores()
+        scoreCategory = highScores.category
+        score = highScores.score
     }
 
 //    fun hasFullProfile(): Boolean {
@@ -104,12 +109,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         } finally {
             onRetrieveDataFinish()
         }
-    }
-
-    fun loadHighScores() {
-        val highScores = sharedPrefs.getHighScores()
-        scoreCategory = highScores.category
-        scoreNumber = highScores.score
     }
 
     private fun cancelRequest() = coroutineContext.cancel()

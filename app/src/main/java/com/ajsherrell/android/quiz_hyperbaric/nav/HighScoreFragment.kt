@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ObservableField
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.ajsherrell.android.quiz_hyperbaric.DetailFragmentArgs
 
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentHighScoreBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Category
-import com.ajsherrell.android.quiz_hyperbaric.model.Response
+import com.ajsherrell.android.quiz_hyperbaric.model.Scores
+import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
+import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 
 private const val SCORE = "score"
@@ -27,15 +26,13 @@ class HighScoreFragment : Fragment() {
     private val args: HighScoreFragmentArgs by navArgs()
 
     private var score: Int = 0
-    private var scoreString = ""
-    private var category: String = ""
+    private lateinit var category: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             score = it.getInt(SCORE)
         }
-//        model.saveHighScore()
     }
 
     override fun onCreateView(
@@ -44,17 +41,20 @@ class HighScoreFragment : Fragment() {
     ): View? {
         binding = FragmentHighScoreBinding.inflate(inflater, container, false)
         score = args.score
+//        model.score = score.toString()
         category = args.category
         binding.lifecycleOwner = this
         rootView = binding.root
         binding.model = model
 
-        scoreString = score.toString()
-        category = model.scoreCategory.toString()
-        scoreString = model.scoreNumber
+//        category = model.scoreCategory
 
-        binding.highScoreCategory.text = category
-        binding.highScoreNumber.text = scoreString
+        binding.clearAllText.setOnClickListener {
+            binding.highScoreCategory.text = getString(R.string.no_scores)
+            binding.highScoreTitle.visibility = View.GONE
+            binding.highScoreName.visibility = View.GONE
+            binding.highScoreNumber.visibility = View.GONE
+        }
 
         return rootView
     }
@@ -69,3 +69,4 @@ class HighScoreFragment : Fragment() {
             }
     }
 }
+
