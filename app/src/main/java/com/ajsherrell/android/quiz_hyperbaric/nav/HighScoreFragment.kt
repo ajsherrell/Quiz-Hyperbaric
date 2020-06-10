@@ -43,10 +43,13 @@ class HighScoreFragment : Fragment() {
         binding.model = model
 
         binding.clearAllText.setOnClickListener {
-            binding.highScoreCategory.text = getString(R.string.no_scores)
+            binding.highScoreTopTitle.text = getString(R.string.no_scores)
+            binding.highScoreCategory.visibility = View.GONE
             binding.highScoreTitle.visibility = View.GONE
             binding.highScoreName.visibility = View.GONE
             binding.highScoreNumber.visibility = View.GONE
+            binding.number.visibility = View.GONE
+            binding.category.visibility = View.GONE
         }
 
         return rootView
