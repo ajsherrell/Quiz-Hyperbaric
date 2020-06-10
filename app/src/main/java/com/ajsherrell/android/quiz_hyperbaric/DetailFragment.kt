@@ -60,10 +60,10 @@ class DetailFragment : Fragment() {
             //answer
             correctAnswer = model.answer
 
-            currentCategory = it
-            for (i in currentCategory) {
-                model.scoreCategory = i.title
-            }
+//            currentCategory = it
+//            for (i in currentCategory) {
+//                model.scoreCategory = i.title
+//            }
 
             //list of questions
             bank = model.questionBank

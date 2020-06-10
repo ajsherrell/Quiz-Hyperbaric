@@ -9,7 +9,6 @@ import com.ajsherrell.android.quiz_hyperbaric.database.QuizRepository
 import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.model.Response
-import com.ajsherrell.android.quiz_hyperbaric.model.Scores
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
 import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
@@ -26,7 +25,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var currentIndex = 0
     var answer = ""
     var isAnswered: Boolean = false
-//    var highScores: MutableList<Scores> = mutableListOf()
     lateinit var scoreCategory: String
 
     private val job = Job()

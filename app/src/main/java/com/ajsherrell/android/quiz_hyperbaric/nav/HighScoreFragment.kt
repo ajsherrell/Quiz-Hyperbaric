@@ -7,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentHighScoreBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Scores
-import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
-import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 
 private const val SCORE = "score"
@@ -41,13 +37,10 @@ class HighScoreFragment : Fragment() {
     ): View? {
         binding = FragmentHighScoreBinding.inflate(inflater, container, false)
         score = args.score
-//        model.score = score.toString()
         category = args.category
         binding.lifecycleOwner = this
         rootView = binding.root
         binding.model = model
-
-//        category = model.scoreCategory
 
         binding.clearAllText.setOnClickListener {
             binding.highScoreCategory.text = getString(R.string.no_scores)

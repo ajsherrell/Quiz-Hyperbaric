@@ -1,6 +1,5 @@
 package com.ajsherrell.android.quiz_hyperbaric
 
-import android.icu.util.ULocale
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,12 +29,16 @@ class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
     private lateinit var rootView: View
 
-    private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
-        override fun onItemClicked(position: Int) {
-            Timber.d("Position clicked: $position!!!")
-            launchDetailFragment(position)
-        }
-    })
+    private var currentCategory = mutableListOf<Category>()
+
+    private lateinit var quizListAdapter: QuizListAdapter
+
+//    private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
+//        override fun onItemClicked(position: Int) {
+//            Timber.d("Position clicked: $position!!!")
+//            launchDetailFragment(position)
+//        }
+//    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +48,14 @@ class ListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.model = model
+
+        quizListAdapter = QuizListAdapter(object : QuizListClickListener {
+            override fun onItemClicked(position: Int) {
+                Timber.d("Position clicked: $position!!!")
+                launchDetailFragment(position)
+                model.scoreCategory = currentCategory[position].title
+            }
+        })
 
         binding.listRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 3)
@@ -62,10 +73,9 @@ class ListFragment : Fragment() {
             quizListAdapter.updateListItems(it.category)
             quizListAdapter.notifyDataSetChanged()
             category = it.category[0]
-//            for (i in category) {
-//
-//            }
-//            model.scoreCategory = category.title
+            for (i in it.category) {
+                currentCategory.add(i)
+            }
         })
 
         rootView = binding.root

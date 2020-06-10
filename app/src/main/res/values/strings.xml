@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Hyperbarics Quiz</string>
-    <string name="category">Category</string>
+    <string name="category">Category:</string>
 
     <string name="sampleQuestion">This is a question?</string>
     <string name="one">Radio answer one</string>
@@ -42,4 +42,5 @@
     <string name="clear">Clear</string>
     <string name="no_scores">No scores yet.</string>
     <string name="zero">0</string>
+    <string name="score">Score:</string>
 </resources>

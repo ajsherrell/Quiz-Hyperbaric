@@ -12,7 +12,7 @@ data class Response(
 @JsonClass(generateAdapter = true)
 data class Category(
     @field:Json(name = "title")
-    val title: String,
+    var title: String,
     @field:Json(name = "questions")
     val questions: List<Questions> = mutableListOf()
 )
