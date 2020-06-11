@@ -23,6 +23,8 @@ class HighScoreFragment : Fragment() {
 
     private var score: Int = 0
     private lateinit var category: String
+    private var scores = mutableListOf<String>()
+    private var categories = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,8 @@ class HighScoreFragment : Fragment() {
         rootView = binding.root
         binding.model = model
 
+        addScores()
+
         binding.clearAllText.setOnClickListener {
             binding.highScoreTopTitle.text = getString(R.string.no_scores)
             binding.highScoreCategory.visibility = View.GONE
@@ -53,6 +57,18 @@ class HighScoreFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    private fun addScores() {
+        scores.add(model.score)
+        categories.add(model.scoreCategory)
+
+        for(i in 0 until scores.size) {
+            binding.highScoreNumber.append(scores[i])
+        }
+        for(i in 0 until categories.size) {
+            binding.highScoreCategory.append(categories[i])
+        }
     }
 
     companion object {

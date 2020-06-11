@@ -48,6 +48,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun saveHighScore() {
         sharedPrefs.saveHighScores(scoreCategory, score)
+
     }
 
     fun loadProfile() {

@@ -89,8 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="@{model.scoreCategory}"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category"
             tools:text="@string/category" />
@@ -102,7 +101,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="@{model.score}"
             app:layout_constraintEnd_toEndOf="@+id/number"
             app:layout_constraintTop_toBottomOf="@+id/number"
             tools:text="@string/zero" />

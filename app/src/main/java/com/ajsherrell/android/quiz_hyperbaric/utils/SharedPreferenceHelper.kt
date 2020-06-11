@@ -43,9 +43,9 @@ class SharedPreferenceHelper(context: Context) {
         }
     }
 
-    fun saveHighScores(name: String, title: String) {
+    fun saveHighScores(category: String, score: String) {
         with(sharedPreferences.edit()) {
-            putString(SCORES, gson.toJson(Scores(name, title)))
+            putString(SCORES, gson.toJson(Scores(category, score)))
             apply()
         }
     }

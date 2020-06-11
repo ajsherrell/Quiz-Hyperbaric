@@ -33,7 +33,6 @@ class DetailFragment : Fragment() {
     private var totalScore = 0
     private var currentIndex = 0
     private lateinit var currentQuestion: Questions
-    private var currentCategory = listOf<Category>()
     private var answered: Boolean = false
 
     private lateinit var binding: FragmentDetailBinding
@@ -59,11 +58,6 @@ class DetailFragment : Fragment() {
         model.catLiveData.observe(viewLifecycleOwner, Observer {
             //answer
             correctAnswer = model.answer
-
-//            currentCategory = it
-//            for (i in currentCategory) {
-//                model.scoreCategory = i.title
-//            }
 
             //list of questions
             bank = model.questionBank
