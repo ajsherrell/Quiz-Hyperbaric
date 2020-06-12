@@ -92,10 +92,8 @@ class DetailFragment : Fragment() {
             nextButton()
         }
         binding.submit.setOnClickListener {
-            if (totalScore > 0) {
-                model.saveHighScore()
-                model.scores.add(totalScore.toString())
-            }
+            model.saveHighScore()
+            model.scores.add(totalScore.toString())
             launchScoresFragment(totalScore)
         }
 

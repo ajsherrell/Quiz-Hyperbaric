@@ -43,4 +43,5 @@
     <string name="no_scores">No scores yet.</string>
     <string name="zero">0</string>
     <string name="score"><u>Score:</u></string>
+    <string name="separator"><![CDATA[----->]]></string>
 </resources>

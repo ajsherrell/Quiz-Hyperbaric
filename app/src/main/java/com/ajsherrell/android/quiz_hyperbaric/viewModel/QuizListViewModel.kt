@@ -30,6 +30,9 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var scores = mutableListOf<String>()
     var categories = mutableListOf<String>()
 
+    val sbScore = StringBuilder()
+    val sbCat = StringBuilder()
+
     private val job = Job()
 
     private val coroutineContext : CoroutineContext get() = job + Dispatchers.Main
@@ -45,11 +48,15 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
+    fun clearSharedPrefs() {
+        sharedPrefs.clearHighScores()
+    }
+
     fun saveProfile() {
         sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
     }
 
-    fun saveHighScore() { //todo: change to mutablelists.
+    fun saveHighScore() {
         sharedPrefs.saveHighScores(categories, scores)
     }
 
@@ -64,11 +71,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         categories = highScores.categories
         scores = highScores.scores
     }
-
-//    fun hasFullProfile(): Boolean {
-//        val profile = sharedPrefs.getProfile()
-//        return profile.name.isNotEmpty() && profile.title.isNotEmpty()
-//    }
 
     val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener { getQuizData() }

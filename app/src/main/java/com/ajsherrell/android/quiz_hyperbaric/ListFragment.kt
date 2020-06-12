@@ -33,13 +33,6 @@ class ListFragment : Fragment() {
 
     private lateinit var quizListAdapter: QuizListAdapter
 
-//    private val quizListAdapter = QuizListAdapter(object : QuizListClickListener {
-//        override fun onItemClicked(position: Int) {
-//            Timber.d("Position clicked: $position!!!")
-//            launchDetailFragment(position)
-//        }
-//    })
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

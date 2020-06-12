@@ -42,7 +42,9 @@ class HighScoreFragment : Fragment() {
         rootView = binding.root
         binding.model = model
 
-        addScores()
+        if (model.scores.isNotEmpty() && model.categories.isNotEmpty()) {
+            addScores()
+        }
 
         binding.clearAllText.setOnClickListener {
             clearHighScores()
@@ -52,34 +54,46 @@ class HighScoreFragment : Fragment() {
     }
 
     private fun clearHighScores() {
+        model.clearSharedPrefs()
         model.categories.clear()
         model.scores.clear()
+        gone()
+    }
+
+    private fun gone() {
         binding.highScoreTopTitle.text = getString(R.string.no_scores)
-        binding.highScoreCategory.visibility = View.GONE
         binding.highScoreTitle.visibility = View.GONE
         binding.highScoreName.visibility = View.GONE
-        binding.highScoreNumber.visibility = View.GONE
+        binding.highScoreCat.visibility = View.GONE
+        binding.highScoreNum.visibility = View.GONE
         binding.number.visibility = View.GONE
         binding.category.visibility = View.GONE
     }
 
+    private fun visible() {
+        binding.highScoreTopTitle.text = getString(R.string.high_score_text)
+        binding.highScoreTitle.visibility = View.VISIBLE
+        binding.highScoreName.visibility = View.VISIBLE
+        binding.highScoreCat.visibility = View.VISIBLE
+        binding.highScoreNum.visibility = View.VISIBLE
+        binding.number.visibility = View.VISIBLE
+        binding.category.visibility = View.VISIBLE
+        binding.clearAllText.visibility = View.VISIBLE
+    }
+
     private fun addScores() {
-        for(i in 0 until model.scores.size) {
-            val sb = StringBuilder()
-            sb.append(model.scores[i])
-            sb.append("\n")
-            val s = sb.toString()
-            binding.highScoreNumber.append(s)
-        }
+        visible()
         for(i in 0 until model.categories.size) {
-            val sb = StringBuilder()
-            sb.append(model.categories[i])
-            sb.append(" ")
-            sb.append("->")
-            sb.append("\n")
-            val c = sb.toString()
-            binding.highScoreCategory.append(c)
+            model.sbCat.append(model.categories[i])
+            model.sbCat.append("\n")
         }
+        for(i in 0 until model.scores.size) {
+            model.sbScore.append(resources.getString(R.string.separator))
+            model.sbScore.append(" ")
+            model.sbScore.append(model.scores[i])
+            model.sbScore.append("\n")
+        }
+
     }
 
     companion object {

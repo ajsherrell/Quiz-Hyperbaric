@@ -17,6 +17,11 @@ class SharedPreferenceHelper(context: Context) {
 
     private val sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
 
+    fun clearHighScores() {
+        sharedPreferences.edit().clear()
+            .apply()
+    }
+
     fun getProfile(): Profile {
         val jsonString = sharedPreferences.getString(PROFILE, null)
         return if (jsonString == null) {
