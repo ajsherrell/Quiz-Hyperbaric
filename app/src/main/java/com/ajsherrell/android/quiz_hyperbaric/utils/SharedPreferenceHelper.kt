@@ -1,7 +1,6 @@
 package com.ajsherrell.android.quiz_hyperbaric.utils
 
 import android.content.Context
-import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Profile
 import com.ajsherrell.android.quiz_hyperbaric.model.Scores
 import com.google.gson.Gson
@@ -43,9 +42,9 @@ class SharedPreferenceHelper(context: Context) {
         }
     }
 
-    fun saveHighScores(category: String, score: String) {
+    fun saveHighScores(categories: MutableList<String>, scores: MutableList<String>) {
         with(sharedPreferences.edit()) {
-            putString(SCORES, gson.toJson(Scores(category, score)))
+            putString(SCORES, gson.toJson(Scores(categories, scores)))
             apply()
         }
     }

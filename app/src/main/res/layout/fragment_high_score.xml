@@ -39,7 +39,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/high_score_title"
+            app:layout_constraintTop_toBottomOf="@+id/high_score_top_title"
             tools:text="@string/name" />
 
         <TextView
@@ -52,7 +52,7 @@
             android:textColor="@color/colorAccent"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/high_score_top_title"
+            app:layout_constraintTop_toBottomOf="@+id/high_score_name"
             tools:text="@string/title" />
 
         <TextView
@@ -74,12 +74,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="4dp"
             android:text="@string/score"
             android:textColor="@color/colorAccent"
-            app:layout_constraintStart_toEndOf="@+id/category"
-            app:layout_constraintTop_toBottomOf="@+id/high_score_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/high_score_title"
             tools:text="@string/score" />
 
         <TextView
@@ -87,7 +87,6 @@
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,8 +98,8 @@
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="@+id/number"
             app:layout_constraintTop_toBottomOf="@+id/number"
             tools:text="@string/zero" />

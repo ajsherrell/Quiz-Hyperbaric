@@ -23,8 +23,6 @@ class HighScoreFragment : Fragment() {
 
     private var score: Int = 0
     private lateinit var category: String
-    private var scores = mutableListOf<String>()
-    private var categories = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,27 +45,40 @@ class HighScoreFragment : Fragment() {
         addScores()
 
         binding.clearAllText.setOnClickListener {
-            binding.highScoreTopTitle.text = getString(R.string.no_scores)
-            binding.highScoreCategory.visibility = View.GONE
-            binding.highScoreTitle.visibility = View.GONE
-            binding.highScoreName.visibility = View.GONE
-            binding.highScoreNumber.visibility = View.GONE
-            binding.number.visibility = View.GONE
-            binding.category.visibility = View.GONE
+            clearHighScores()
         }
 
         return rootView
     }
 
-    private fun addScores() {
-        scores.add(model.score)
-        categories.add(model.scoreCategory)
+    private fun clearHighScores() {
+        model.categories.clear()
+        model.scores.clear()
+        binding.highScoreTopTitle.text = getString(R.string.no_scores)
+        binding.highScoreCategory.visibility = View.GONE
+        binding.highScoreTitle.visibility = View.GONE
+        binding.highScoreName.visibility = View.GONE
+        binding.highScoreNumber.visibility = View.GONE
+        binding.number.visibility = View.GONE
+        binding.category.visibility = View.GONE
+    }
 
-        for(i in 0 until scores.size) {
-            binding.highScoreNumber.append(scores[i])
+    private fun addScores() {
+        for(i in 0 until model.scores.size) {
+            val sb = StringBuilder()
+            sb.append(model.scores[i])
+            sb.append("\n")
+            val s = sb.toString()
+            binding.highScoreNumber.append(s)
         }
-        for(i in 0 until categories.size) {
-            binding.highScoreCategory.append(categories[i])
+        for(i in 0 until model.categories.size) {
+            val sb = StringBuilder()
+            sb.append(model.categories[i])
+            sb.append(" ")
+            sb.append("->")
+            sb.append("\n")
+            val c = sb.toString()
+            binding.highScoreCategory.append(c)
         }
     }
 

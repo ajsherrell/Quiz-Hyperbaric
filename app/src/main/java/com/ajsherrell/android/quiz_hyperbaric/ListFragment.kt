@@ -54,6 +54,7 @@ class ListFragment : Fragment() {
                 Timber.d("Position clicked: $position!!!")
                 launchDetailFragment(position)
                 model.scoreCategory = currentCategory[position].title
+                model.categories.add(model.scoreCategory)
             }
         })
 

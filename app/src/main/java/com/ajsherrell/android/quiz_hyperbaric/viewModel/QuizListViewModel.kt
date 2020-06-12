@@ -19,13 +19,16 @@ import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
-    lateinit var score: String
+    var score: String = ""
     var questionBank = listOf<Questions>()
     var category: Category? = null
     var currentIndex = 0
     var answer = ""
     var isAnswered: Boolean = false
     lateinit var scoreCategory: String
+
+    var scores = mutableListOf<String>()
+    var categories = mutableListOf<String>()
 
     private val job = Job()
 
@@ -46,9 +49,8 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
     }
 
-    fun saveHighScore() {
-        sharedPrefs.saveHighScores(scoreCategory, score)
-
+    fun saveHighScore() { //todo: change to mutablelists.
+        sharedPrefs.saveHighScores(categories, scores)
     }
 
     fun loadProfile() {
@@ -59,8 +61,8 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun loadHighScores() {
         val highScores = sharedPrefs.getHighScores()
-        scoreCategory = highScores.category
-        score = highScores.score
+        categories = highScores.categories
+        scores = highScores.scores
     }
 
 //    fun hasFullProfile(): Boolean {
