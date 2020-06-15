@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Category
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import timber.log.Timber
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 private const val KEY_INDEX = "index"
 private const val SCORE = "score"
@@ -24,8 +22,8 @@ private const val IS_ANSWERED = "isAnswered"
 
 class DetailFragment : Fragment() {
 
-    private lateinit var radioGroup: RadioGroup
-    private lateinit var radioButton: RadioButton
+    private lateinit var rg: RadioGroup
+    private lateinit var rb: RadioButton
 
     private var bank = listOf<Questions>()
     private var lastIndex = 0
@@ -84,11 +82,12 @@ class DetailFragment : Fragment() {
         model.isAnswered = answered
 
         //radio button selection
-        radioGroup = binding.radioGroup
+        rg = binding.radioGroup
         hasAnswered()
         selectRadioButton()
 
         binding.next.setOnClickListener {
+//            binding.radioGroup.clearCheck()
             nextButton()
         }
         binding.submit.setOnClickListener {
@@ -103,14 +102,15 @@ class DetailFragment : Fragment() {
     //used: https://stackoverflow.com/questions/6780981/android-radiogroup-how-to-configure-the-event-listener
     private fun selectRadioButton() {
         var selectedText: String = ""
-        radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
-            radioButton = group.findViewById(checkedId)
-            val isChecked: Boolean = radioButton.isChecked
+        rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { _, checkedId ->
+            rb = rg.findViewById(checkedId)
+
+            val isChecked: Boolean = rb.isChecked
 
             if (isChecked) {
                 answered = true
                 hasAnswered()
-                selectedText = radioButton.text as String
+                selectedText = rb.text as String
                 if (selectedText == correctAnswer) {
                     totalScore += 1
                 } else {
@@ -121,10 +121,6 @@ class DetailFragment : Fragment() {
                 answered = false
                 hasAnswered()
             }
-
-            Timber.d("!!!totalScore is $totalScore. SelectedText is $selectedText. Correct Answer is $correctAnswer. SelectedId = $checkedId.")
-            Toast.makeText(context, "Score is ${totalScore}.", Toast.LENGTH_SHORT).show()
-
         })
     }
 
@@ -139,7 +135,10 @@ class DetailFragment : Fragment() {
     }
 
     private fun resetButton() {
-        radioButton.isChecked = false
+        binding.radioButton1.isChecked = false
+        binding.radioButton2.isChecked = false
+        binding.radioButton3.isChecked = false
+        binding.radioButton4.isChecked = false
         answered = false
     }
 
@@ -188,6 +187,5 @@ class DetailFragment : Fragment() {
         val action = DetailFragmentDirections.actionDetailFragmentToScoresFragment(score)
         findNavController().navigate(action)
     }
-
 }
 

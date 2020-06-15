@@ -33,7 +33,6 @@ import java.lang.IllegalArgumentException
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.d("MainActivity has started in onCreate!!!")
         setupBinding()
         drawerLayout = binding.drawerLayout
 

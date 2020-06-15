@@ -15,9 +15,6 @@
     <string name="high_score">High Score</string>
     <string name="resources">Resources</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="about_text">This quiz is for medical professionals to practice to take the Certified
     Hyperbaric Tech exam.</string>
     <string name="resources_text">These are links to resources to further improve knowledge of

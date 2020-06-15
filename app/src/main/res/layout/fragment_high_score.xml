@@ -33,6 +33,7 @@
         <TextView
             android:id="@+id/high_score_name"
             android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -47,6 +48,7 @@
         <TextView
             android:id="@+id/high_score_title"
             android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -61,6 +63,7 @@
         <TextView
             android:id="@+id/category"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +78,7 @@
         <TextView
             android:id="@+id/number"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,6 +94,7 @@
         <TextView
             android:id="@+id/high_score_cat"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,6 +109,7 @@
         <TextView
             android:id="@+id/high_score_num"
             android:visibility="gone"
+            tools:visibility="visible"
             style="@style/nav_fragment_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,6 +123,7 @@
         <Button
             android:id="@+id/clear_all_text"
             android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

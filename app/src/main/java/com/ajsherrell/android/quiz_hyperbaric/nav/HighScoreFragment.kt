@@ -10,6 +10,7 @@ import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentHighScoreBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import timber.log.Timber
 
 private const val SCORE = "score"
 
@@ -42,7 +43,9 @@ class HighScoreFragment : Fragment() {
         rootView = binding.root
         binding.model = model
 
-        if (model.scores.isNotEmpty() && model.categories.isNotEmpty()) {
+        gone()
+
+        if (model.scores.size != 0) {
             addScores()
         }
 
@@ -86,12 +89,14 @@ class HighScoreFragment : Fragment() {
         for(i in 0 until model.categories.size) {
             model.sbCat.append(model.categories[i])
             model.sbCat.append("\n")
+            Timber.d("!!!category is: ${model.categories[i]}")
         }
         for(i in 0 until model.scores.size) {
             model.sbScore.append(resources.getString(R.string.separator))
             model.sbScore.append(" ")
             model.sbScore.append(model.scores[i])
             model.sbScore.append("\n")
+            Timber.d("!!!score is: ${model.scores[i]}")
         }
 
     }

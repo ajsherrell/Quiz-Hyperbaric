@@ -8,7 +8,6 @@
 - Fragments
 - RecyclerView
 - DataBinding
-- Dagger2
 - LiveData
 
 ### Images
