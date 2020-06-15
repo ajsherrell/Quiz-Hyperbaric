@@ -14,7 +14,6 @@ import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
 import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 private const val KEY_INDEX = "index"
 private const val SCORE = "score"
@@ -87,7 +86,7 @@ class DetailFragment : Fragment() {
         selectRadioButton()
 
         binding.next.setOnClickListener {
-//            binding.radioGroup.clearCheck()
+//            rg.findViewById<RadioGroup>(binding.radioGroup.id).clearCheck()
             nextButton()
         }
         binding.submit.setOnClickListener {
@@ -118,6 +117,7 @@ class DetailFragment : Fragment() {
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
             } else {
+//                rg.findViewById<RadioGroup>(binding.radioGroup.id).clearCheck() todo: come back to this.
                 answered = false
                 hasAnswered()
             }
