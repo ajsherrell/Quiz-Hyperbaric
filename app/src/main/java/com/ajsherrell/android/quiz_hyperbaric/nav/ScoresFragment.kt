@@ -31,13 +31,15 @@ class ScoresFragment : Fragment() {
     ): View? {
         binding = FragmentScoresBinding.inflate(inflater, container, false)
         val score = args.score
-        model.score = score.toString()
         binding.lifecycleOwner = this
-
-        if (score >= 3) {
-            binding.scoreText.text = resources.getString(R.string.win, score)
+        //var percentage = (count.toDouble() / totalCount) * 100
+        val percentage = (score.toDouble() / 4) * 100
+        val newScore = percentage.toInt()
+        model.score = resources.getString(R.string.percent, newScore)
+        if (newScore >= 60) {
+            binding.scoreText.text = resources.getString(R.string.win, newScore)
         } else {
-            binding.scoreText.text = resources.getString(R.string.lose, score)
+            binding.scoreText.text = resources.getString(R.string.lose, newScore)
         }
 
         binding.homeButton.setOnClickListener {

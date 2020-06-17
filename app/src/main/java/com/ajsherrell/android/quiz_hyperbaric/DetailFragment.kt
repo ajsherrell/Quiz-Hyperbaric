@@ -70,7 +70,9 @@ class DetailFragment : Fragment() {
 
         //score
         totalScore = savedInstanceState?.getInt(SCORE, 0) ?: 0
-        model.score = totalScore.toString()
+        val percentage = (totalScore.toDouble() / 4) * 100
+        val newScore = percentage.toInt()
+        model.score = resources.getString(R.string.percent, newScore)
 
         //has question been answered
         answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
