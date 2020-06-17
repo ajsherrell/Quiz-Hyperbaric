@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ajsherrell.android.quiz_hyperbaric.MainActivity
+import com.ajsherrell.android.quiz_hyperbaric.R
 
 class SplashActivity : AppCompatActivity() {
 

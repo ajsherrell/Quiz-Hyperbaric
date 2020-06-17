@@ -2,6 +2,8 @@ package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
 import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
@@ -26,6 +28,14 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var answer = ""
     var isAnswered: Boolean = false
     lateinit var scoreCategory: String
+
+    //radioButtons
+    lateinit var rg: RadioGroup
+    lateinit var rb: RadioButton
+    lateinit var rb1: RadioButton
+    lateinit var rb2: RadioButton
+    lateinit var rb3: RadioButton
+    lateinit var rb4: RadioButton
 
     var scores = mutableListOf<String>()
     var categories = mutableListOf<String>()
@@ -134,4 +144,5 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         super.onCleared()
         cancelRequest()
     }
+
 }

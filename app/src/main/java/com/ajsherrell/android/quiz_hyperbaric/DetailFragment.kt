@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -20,9 +19,6 @@ private const val SCORE = "score"
 private const val IS_ANSWERED = "isAnswered"
 
 class DetailFragment : Fragment() {
-
-    private lateinit var rg: RadioGroup
-    private lateinit var rb: RadioButton
 
     private var bank = listOf<Questions>()
     private var lastIndex = 0
@@ -81,12 +77,15 @@ class DetailFragment : Fragment() {
         model.isAnswered = answered
 
         //radio button selection
-        rg = binding.radioGroup
+        model.rg = binding.radioGroup
+        model.rb1 = binding.radioButton1
+        model.rb2 = binding.radioButton2
+        model.rb3 = binding.radioButton3
+        model.rb4 = binding.radioButton4
         hasAnswered()
         selectRadioButton()
 
         binding.next.setOnClickListener {
-//            rg.findViewById<RadioGroup>(binding.radioGroup.id).clearCheck()
             nextButton()
         }
         binding.submit.setOnClickListener {
@@ -101,15 +100,18 @@ class DetailFragment : Fragment() {
     //used: https://stackoverflow.com/questions/6780981/android-radiogroup-how-to-configure-the-event-listener
     private fun selectRadioButton() {
         var selectedText: String = ""
-        rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { _, checkedId ->
-            rb = rg.findViewById(checkedId)
+        model.rg.clearCheck()
+        val rId = model.rg.checkedRadioButtonId
+        model.rg.check(rId)
+        model.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
+             model.rb = group.findViewById(checkedId)
 
-            val isChecked: Boolean = rb.isChecked
+            val isChecked: Boolean = model.rb.isChecked
 
             if (isChecked) {
                 answered = true
                 hasAnswered()
-                selectedText = rb.text as String
+                selectedText = model.rb.text as String
                 if (selectedText == correctAnswer) {
                     totalScore += 1
                 } else {
@@ -117,7 +119,6 @@ class DetailFragment : Fragment() {
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
             } else {
-//                rg.findViewById<RadioGroup>(binding.radioGroup.id).clearCheck() todo: come back to this.
                 answered = false
                 hasAnswered()
             }
@@ -135,6 +136,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun resetButton() {
+//        model.rg.clearCheck()
         binding.radioButton1.isChecked = false
         binding.radioButton2.isChecked = false
         binding.radioButton3.isChecked = false
