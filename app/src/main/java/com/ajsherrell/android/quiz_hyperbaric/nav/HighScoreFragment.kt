@@ -10,7 +10,6 @@ import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentHighScoreBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import timber.log.Timber
 
 private const val SCORE = "score"
 
@@ -24,8 +23,6 @@ class HighScoreFragment : Fragment() {
 
     private var score: Int = 0
     private lateinit var category: String
-    private var currentCatIndex = 0
-    private var currentScIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,28 +90,18 @@ class HighScoreFragment : Fragment() {
         binding.clearAllText.visibility = View.VISIBLE
     }
 
-    private fun addScores() { //todo: get working right
+    private fun addScores() {
         visible()
-        //categories
-        currentCatIndex = (currentCatIndex + 1) % model.categories.size
-        val currentC = model.categories[currentCatIndex]
-        model.sbCat.append(currentC)
-        model.sbCat.append("\n")
-        Timber.d("!!!category is: $currentC $currentCatIndex")
-        if (currentCatIndex != currentCatIndex+1) {
-            currentCatIndex++
+        for (i in 0 until model.categories.size) {
+            model.sbCat.append(model.categories[i])
+            model.sbCat.append("\n")
         }
+        for (i in 0 until model.scores.size) {
+            model.sbScore.append(resources.getString(R.string.separator))
+            model.sbScore.append(" ")
+            model.sbScore.append(model.scores[i])
+            model.sbScore.append("\n")
 
-        //scores
-        currentScIndex = (currentScIndex + 1) % model.scores.size
-        model.sbScore.append(resources.getString(R.string.separator))
-        model.sbScore.append(" ")
-        val currentS = model.scores[currentScIndex]
-        model.sbScore.append(currentS)
-        model.sbScore.append("\n")
-        Timber.d("!!!score is: $currentS $currentScIndex")
-        if (currentScIndex != currentScIndex+1) {
-            currentScIndex++
         }
     }
 

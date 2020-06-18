@@ -76,6 +76,16 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         profileTitle.set(profile.title)
     }
 
+    fun hasFullProfile(): Boolean {
+        val profile = sharedPrefs.getProfile()
+        return profile.name.isNotEmpty() && profile.title.isNotEmpty()
+    }
+
+    fun hasFullScores(): Boolean {
+        val highScores = sharedPrefs.getHighScores()
+        return highScores.categories.isNotEmpty() && highScores.scores.isNotEmpty()
+    }
+
     fun loadHighScores() {
         val highScores = sharedPrefs.getHighScores()
         categories = highScores.categories
