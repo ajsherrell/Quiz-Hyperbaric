@@ -45,10 +45,10 @@ class HighScoreFragment : Fragment() {
         rootView = binding.root
         binding.model = model
 
-        gone()
-
         if (model.scores.size != 0) {
             addScores()
+        } else {
+            gone()
         }
 
         binding.clearAllText.setOnClickListener {
@@ -63,6 +63,12 @@ class HighScoreFragment : Fragment() {
         model.categories.clear()
         model.scores.clear()
         gone()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        model.categories.clear()
+        model.scores.clear()
     }
 
     private fun gone() {
@@ -95,7 +101,9 @@ class HighScoreFragment : Fragment() {
         model.sbCat.append(currentC)
         model.sbCat.append("\n")
         Timber.d("!!!category is: $currentC $currentCatIndex")
-        currentCatIndex++
+        if (currentCatIndex != currentCatIndex+1) {
+            currentCatIndex++
+        }
 
         //scores
         currentScIndex = (currentScIndex + 1) % model.scores.size
@@ -105,7 +113,9 @@ class HighScoreFragment : Fragment() {
         model.sbScore.append(currentS)
         model.sbScore.append("\n")
         Timber.d("!!!score is: $currentS $currentScIndex")
-        currentScIndex++
+        if (currentScIndex != currentScIndex+1) {
+            currentScIndex++
+        }
     }
 
     companion object {

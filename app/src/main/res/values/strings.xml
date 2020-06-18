@@ -44,7 +44,7 @@
     <string name="correct_answer">Correct answer is: %s.</string>
     <string name="incorrect_answer">Wrong! The correct answer is: </string>
     <string name="clear">Clear</string>
-    <string name="no_scores">No scores yet.</string>
+    <string name="no_scores">Take a quiz to see your scores.</string>
     <string name="zero">0</string>
     <string name="score"><u>Score:</u></string>
     <string name="separator"> <![CDATA[----->]]> </string>
