@@ -70,9 +70,6 @@ class DetailFragment : Fragment() {
 
         //score
         totalScore = savedInstanceState?.getInt(SCORE, 0) ?: 0
-        val percentage = (totalScore.toDouble() / 4) * 100
-        val newScore = percentage.toInt()
-        model.score = resources.getString(R.string.percent, newScore)
 
         //has question been answered
         answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
@@ -92,7 +89,7 @@ class DetailFragment : Fragment() {
         }
         binding.submit.setOnClickListener {
             model.saveHighScore()
-            model.scores.add(totalScore.toString())
+            model.scores.add(resources.getString(R.string.percent, model.scorePercentage(totalScore)))
             launchScoresFragment(totalScore)
         }
 

@@ -32,9 +32,8 @@ class ScoresFragment : Fragment() {
         binding = FragmentScoresBinding.inflate(inflater, container, false)
         val score = args.score
         binding.lifecycleOwner = this
-        //var percentage = (count.toDouble() / totalCount) * 100
-        val percentage = (score.toDouble() / 4) * 100
-        val newScore = percentage.toInt()
+
+        val newScore = model.scorePercentage(score)
         model.score = resources.getString(R.string.percent, newScore)
         if (newScore >= 60) {
             binding.scoreText.text = resources.getString(R.string.win, newScore)

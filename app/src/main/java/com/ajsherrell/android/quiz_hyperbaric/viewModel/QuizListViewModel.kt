@@ -82,6 +82,11 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         scores = highScores.scores
     }
 
+    fun scorePercentage(score: Int) : Int {
+        val percentage = (score.toDouble() / 4) * 100
+        return percentage.toInt()
+    }
+
     val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener { getQuizData() }
 
