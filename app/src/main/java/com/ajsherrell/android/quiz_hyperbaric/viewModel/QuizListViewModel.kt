@@ -25,13 +25,13 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var questionBank = listOf<Questions>()
     var category: Category? = null
     var currentIndex = 0
-    var answer = ""
+    var selectedText: String = ""
     var isAnswered: Boolean = false
     lateinit var scoreCategory: String
 
     //radioButtons
     lateinit var rg: RadioGroup
-    lateinit var rb: RadioButton
+    var rb: RadioButton? = null
     lateinit var rb1: RadioButton
     lateinit var rb2: RadioButton
     lateinit var rb3: RadioButton
@@ -159,5 +159,31 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         super.onCleared()
         cancelRequest()
     }
+
+//    fun onRadioButtonClicked(view: View) {
+//        if (view is RadioButton) {
+//            val checked = view.isChecked
+//
+//            when (view.id) {
+//                R.id.radioButton1 ->
+//                    if (checked) {
+//                        rb = view.findViewById(R.id.radioButton1)
+//                    }
+//                R.id.radioButton2 ->
+//                    if (checked) {
+//                        rb = view.findViewById(R.id.radioButton2)
+//                    }
+//                R.id.radioButton3 ->
+//                    if (checked) {
+//                        rb = view.findViewById(R.id.radioButton3)
+//                    }
+//                R.id.radioButton4 ->
+//                    if (checked) {
+//                        rb = view.findViewById(R.id.radioButton4)
+//                    }
+//            }
+//            selectedText = rb.text as String
+//        }
+//    }
 
 }

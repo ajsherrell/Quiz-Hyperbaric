@@ -49,8 +49,6 @@ class DetailFragment : Fragment() {
         model.getQData()
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
-            //answer
-            correctAnswer = model.answer
 
             //list of questions
             bank = model.questionBank
@@ -98,21 +96,16 @@ class DetailFragment : Fragment() {
 
     //used: https://stackoverflow.com/questions/6780981/android-radiogroup-how-to-configure-the-event-listener
     private fun selectRadioButton() {
-        var selectedText: String = ""
-        model.rg.clearCheck()
-        val rId = model.rg.checkedRadioButtonId
-        model.rg.check(rId)
         model.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
-             model.rb = group.findViewById(checkedId)
-
-            val isChecked: Boolean = model.rb.isChecked
+            model.rb = view?.findViewById(checkedId)
+            val isChecked: Boolean = model.rb?.isChecked ?: false
 
             if (isChecked) {
                 answered = true
                 hasAnswered()
-                selectedText = model.rb.text as String
-                if (selectedText == correctAnswer) {
-                    totalScore += 1
+                model.selectedText = model.rb?.text as String
+                if (model.selectedText == correctAnswer) {
+                    totalScore+=1
                 } else {
                     binding.incorrectText.visibility = View.VISIBLE
                     binding.correctAnswerText.visibility = View.VISIBLE
@@ -135,11 +128,11 @@ class DetailFragment : Fragment() {
     }
 
     private fun resetButton() {
-//        model.rg.clearCheck()
-        binding.radioButton1.isChecked = false
-        binding.radioButton2.isChecked = false
-        binding.radioButton3.isChecked = false
-        binding.radioButton4.isChecked = false
+        model.rg.clearCheck()
+        model.rb1.isChecked = false
+        model.rb2.isChecked = false
+        model.rb3.isChecked = false
+        model.rb4.isChecked = false
         answered = false
     }
 
@@ -171,17 +164,17 @@ class DetailFragment : Fragment() {
     }
 
     private fun enableRadioButtons() {
-        binding.radioButton1.isEnabled = true
-        binding.radioButton2.isEnabled = true
-        binding.radioButton3.isEnabled = true
-        binding.radioButton4.isEnabled = true
+        model.rb1.isEnabled = true
+        model.rb2.isEnabled = true
+        model.rb3.isEnabled = true
+        model.rb4.isEnabled = true
     }
 
     private fun disableRadioButtons() {
-        binding.radioButton1.isEnabled = false
-        binding.radioButton2.isEnabled = false
-        binding.radioButton3.isEnabled = false
-        binding.radioButton4.isEnabled = false
+        model.rb1.isEnabled = false
+        model.rb2.isEnabled = false
+        model.rb3.isEnabled = false
+        model.rb4.isEnabled = false
     }
 
     private fun launchScoresFragment(score: Int) {
