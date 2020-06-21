@@ -72,8 +72,6 @@ class HighScoreFragment : Fragment() {
 
     private fun clearHighScores() {
         model.clearSharedPrefs()
-        model.categories.clear()
-        model.scores.clear()
         gone()
     }
 

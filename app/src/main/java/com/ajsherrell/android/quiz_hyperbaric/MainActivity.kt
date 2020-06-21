@@ -21,6 +21,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -86,6 +87,9 @@ import java.lang.IllegalArgumentException
              navHeaderBinding.model = model
              model?.loadProfile()
              model?.loadHighScores()
+             model?.title?.observe(this, Observer {
+                 supportActionBar?.title = it
+             })
          } catch (e: IllegalArgumentException) {
              e.printStackTrace()
          }

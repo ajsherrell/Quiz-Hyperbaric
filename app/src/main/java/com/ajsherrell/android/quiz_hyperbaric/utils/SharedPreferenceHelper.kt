@@ -33,8 +33,7 @@ class SharedPreferenceHelper(context: Context) {
     private val sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
 
     fun clearHighScores() {
-        sharedPreferences.edit().clear()
-            .apply()
+        sharedPreferences.edit().clear().apply()
     }
 
     fun getProfile(): Profile {
@@ -68,5 +67,4 @@ class SharedPreferenceHelper(context: Context) {
             apply()
         }
     }
-
 }

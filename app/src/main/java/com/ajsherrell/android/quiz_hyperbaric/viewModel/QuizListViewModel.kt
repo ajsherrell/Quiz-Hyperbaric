@@ -44,6 +44,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var isAnswered: Boolean = false
     lateinit var scoreCategory: String
 
+    //app bar title
+    private val _title = MutableLiveData<String>()
+    val title: LiveData<String>
+        get() = _title
+    fun updateActionBarTitle(title: String) = _title.postValue(title)
+
     //radioButtons
     lateinit var rg: RadioGroup
     var rb: RadioButton? = null

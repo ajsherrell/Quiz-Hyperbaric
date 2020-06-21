@@ -110,6 +110,13 @@ class DetailFragment : Fragment() {
         return rootView
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.run {
+            model.updateActionBarTitle(model.scoreCategory)
+        }
+    }
+
     //used: https://stackoverflow.com/questions/6780981/android-radiogroup-how-to-configure-the-event-listener
     private fun selectRadioButton() {
         model.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
