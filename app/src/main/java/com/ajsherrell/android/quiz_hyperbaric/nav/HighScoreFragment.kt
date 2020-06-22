@@ -107,15 +107,7 @@ class HighScoreFragment : Fragment() {
 
     private fun addScores() {
         visible()
-        for (i in 0 until model.categories.size) {
-            model.sbCat.append(model.categories[i])
-            model.sbCat.append("\n")
-        }
-        for (i in 0 until model.scores.size) {
-            model.sbScore.append(" ")
-            model.sbScore.append(model.scores[i])
-            model.sbScore.append("\n")
-        }
+        model.addScores()
     }
 
     companion object {

@@ -191,30 +191,16 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         cancelRequest()
     }
 
-//    fun onRadioButtonClicked(view: View) {
-//        if (view is RadioButton) {
-//            val checked = view.isChecked
-//
-//            when (view.id) {
-//                R.id.radioButton1 ->
-//                    if (checked) {
-//                        rb = view.findViewById(R.id.radioButton1)
-//                    }
-//                R.id.radioButton2 ->
-//                    if (checked) {
-//                        rb = view.findViewById(R.id.radioButton2)
-//                    }
-//                R.id.radioButton3 ->
-//                    if (checked) {
-//                        rb = view.findViewById(R.id.radioButton3)
-//                    }
-//                R.id.radioButton4 ->
-//                    if (checked) {
-//                        rb = view.findViewById(R.id.radioButton4)
-//                    }
-//            }
-//            selectedText = rb.text as String
-//        }
-//    }
+    fun addScores() {
+        for (i in 0 until categories.size) {
+            sbCat.append(categories[i])
+            sbCat.append("\n")
+        }
+        for (i in 0 until scores.size) {
+            sbScore.append(" ")
+            sbScore.append(scores[i])
+            sbScore.append("\n")
+        }
+    }
 
 }
