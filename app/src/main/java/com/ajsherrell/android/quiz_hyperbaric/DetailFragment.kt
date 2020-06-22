@@ -35,13 +35,9 @@ private const val IS_ANSWERED = "isAnswered"
 
 class DetailFragment : Fragment() {
 
-    private var bank = listOf<Questions>()
     private var lastIndex = 0
     private var correctAnswer = ""
     private var totalScore = 0
-    private var currentIndex = 0
-    private lateinit var currentQuestion: Questions
-    private var answered: Boolean = false
 
     private lateinit var binding: FragmentDetailBinding
     private lateinit var rootView: View
@@ -66,27 +62,24 @@ class DetailFragment : Fragment() {
         model.catLiveData.observe(viewLifecycleOwner, Observer {
 
             //list of questions
-            bank = model.questionBank
-            bank = it[index].questions
-            bank.shuffled()
-            for (i in bank) {
-                currentQuestion = i
+            model.bank = it[index].questions
+            model.bank.shuffled()
+            for (i in model.bank) {
+                model.currentQuestion = i
                 correctAnswer = i.answer
-                answered = i.answered
-                binding.q = currentQuestion
+                model.isAnswered = i.answered
+                binding.q = model.currentQuestion
             }
         })
 
         //Current index of question bank.
-        currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
-        model.currentIndex = currentIndex
+        model.currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
 
         //score
         totalScore = savedInstanceState?.getInt(SCORE, 0) ?: 0
 
         //has question been answered
-        answered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
-        model.isAnswered = answered
+        model.isAnswered = savedInstanceState?.getBoolean(IS_ANSWERED, false) ?: false
 
         //radio button selection
         model.rg = binding.radioGroup
@@ -125,7 +118,7 @@ class DetailFragment : Fragment() {
             val isChecked: Boolean = model.rb?.isChecked ?: false
 
             if (isChecked) {
-                answered = true
+                model.isAnswered = true
                 hasAnswered()
                 model.selectedText = model.rb?.text as String
                 if (model.selectedText == correctAnswer) {
@@ -135,7 +128,7 @@ class DetailFragment : Fragment() {
                     binding.correctAnswerText.visibility = View.VISIBLE
                 }
             } else {
-                answered = false
+                model.isAnswered = false
                 hasAnswered()
             }
         })
@@ -144,8 +137,8 @@ class DetailFragment : Fragment() {
     private fun nextButton() {
         resetButton()
         updateQuestion()
-        lastIndex = bank.size - 1
-        if (currentIndex == lastIndex) {
+        lastIndex = model.bank.size - 1
+        if (model.currentIndex == lastIndex) {
             binding.next.visibility = View.GONE
             binding.submit.visibility = View.VISIBLE
         }
@@ -157,11 +150,11 @@ class DetailFragment : Fragment() {
         model.rb2.isChecked = false
         model.rb3.isChecked = false
         model.rb4.isChecked = false
-        answered = false
+        model.isAnswered = false
     }
 
     private fun hasAnswered() {
-        if (!answered) {
+        if (!model.isAnswered) {
             enableRadioButtons()
             binding.next.isEnabled = false
             binding.submit.isEnabled = false
@@ -174,15 +167,15 @@ class DetailFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_INDEX, currentIndex)
+        outState.putInt(KEY_INDEX, model.currentIndex)
         outState.putInt(SCORE, totalScore)
-        outState.putBoolean(IS_ANSWERED, answered)
+        outState.putBoolean(IS_ANSWERED, model.isAnswered)
     }
 
     private fun updateQuestion() {
-        currentIndex = (currentIndex + 1) % bank.size
-        binding.q = bank[currentIndex]
-        correctAnswer = bank[currentIndex].answer
+        model.currentIndex = (model.currentIndex + 1) % model.bank.size
+        binding.q = model.bank[model.currentIndex]
+        correctAnswer = model.bank[model.currentIndex].answer
         binding.correctAnswerText.visibility = View.GONE
         binding.incorrectText.visibility = View.GONE
     }

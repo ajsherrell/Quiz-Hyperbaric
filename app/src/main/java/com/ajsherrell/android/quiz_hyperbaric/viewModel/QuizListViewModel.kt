@@ -37,7 +37,8 @@ import kotlin.coroutines.CoroutineContext
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     var score: String = ""
-    var questionBank = listOf<Questions>()
+    var bank = listOf<Questions>()
+    lateinit var currentQuestion: Questions
     var category: Category? = null
     var currentIndex = 0
     var selectedText: String = ""
