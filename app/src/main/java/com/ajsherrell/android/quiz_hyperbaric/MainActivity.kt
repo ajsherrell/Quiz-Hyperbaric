@@ -86,7 +86,7 @@ import java.lang.IllegalArgumentException
              model = viewModelProvider.get(QuizListViewModel::class.java)
              navHeaderBinding.model = model
              model?.loadProfile()
-             model?.loadHighScores()
+//             model?.loadHighScores()
              model?.title?.observe(this, Observer {
                  supportActionBar?.title = it
              })

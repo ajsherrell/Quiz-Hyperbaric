@@ -59,6 +59,7 @@ class HighScoreFragment : Fragment() {
 
         if (model.scores.size != 0) {
             addScores()
+            model.loadHighScores()
         } else {
             gone()
         }
@@ -79,6 +80,7 @@ class HighScoreFragment : Fragment() {
         super.onDestroyView()
         model.categories.clear()
         model.scores.clear()
+        //keeps category list from populating twice.
     }
 
     private fun gone() {
@@ -113,7 +115,6 @@ class HighScoreFragment : Fragment() {
             model.sbScore.append(" ")
             model.sbScore.append(model.scores[i])
             model.sbScore.append("\n")
-
         }
     }
 

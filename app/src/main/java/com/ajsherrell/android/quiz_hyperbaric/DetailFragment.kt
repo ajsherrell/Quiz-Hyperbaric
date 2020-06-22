@@ -110,6 +110,7 @@ class DetailFragment : Fragment() {
         return rootView
     }
 
+    // used: https://stackoverflow.com/questions/15560904/setting-custom-actionbar-title-from-fragment
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.run {

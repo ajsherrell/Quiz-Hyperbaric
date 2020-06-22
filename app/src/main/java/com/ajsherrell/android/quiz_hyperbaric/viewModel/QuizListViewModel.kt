@@ -80,8 +80,18 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
     fun clearSharedPrefs() {
+//        categories.clear()
+//        scores.clear()
+//        not()
         sharedPrefs.clearHighScores()
     }
+
+//    operator fun not() {
+//        val c = mutableListOf<String>()
+//        val s = mutableListOf<String>()
+//        sharedPrefs.saveHighScores(c, s)
+//    }
+
 
     fun saveProfile() {
         sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
@@ -97,7 +107,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         profileTitle.set(profile.title)
     }
 
-    fun hasFullProfile(): Boolean {
+    fun hasFullProfile(): Boolean { //todo: do I need these two functions?
         val profile = sharedPrefs.getProfile()
         return profile.name.isNotEmpty() && profile.title.isNotEmpty()
     }
