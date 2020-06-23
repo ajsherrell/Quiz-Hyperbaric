@@ -81,18 +81,8 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
     fun clearSharedPrefs() {
-//        categories.clear()
-//        scores.clear()
-//        not()
         sharedPrefs.clearHighScores()
     }
-
-//    operator fun not() {
-//        val c = mutableListOf<String>()
-//        val s = mutableListOf<String>()
-//        sharedPrefs.saveHighScores(c, s)
-//    }
-
 
     fun saveProfile() {
         sharedPrefs.saveProfile(profileName.getOrEmpty(), profileTitle.getOrEmpty())
@@ -150,8 +140,9 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
                 _quizLiveData.value = quizData
             }
         } catch (e: IllegalThreadStateException) {
+            e.printStackTrace()
             onRetrieveDataError()
-            Timber.e("$e !!! $errorMessage")
+            Timber.e("$e !!! ${e.message}")
         } finally {
             onRetrieveDataFinish()
         }
@@ -160,14 +151,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     fun getQData() { //sets up the DetailFragment
         try {
             scope.launch {
-                mutableLoading.value = View.VISIBLE
                 val qData = repo.getQData()
                 _catLiveData.value = qData
             }
         } catch (e: IllegalThreadStateException) {
+            e.printStackTrace()
             Timber.e("$e")
-        } finally {
-            onRetrieveDataFinish()
         }
     }
 
@@ -179,6 +168,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private fun onRetrieveDataError() {
+        mutableLoading.value = View.GONE
         errorMessage.value = R.string.error_message
         cancelRequest()
     }

@@ -113,7 +113,7 @@ class DetailFragment : Fragment() {
 
     //used: https://stackoverflow.com/questions/6780981/android-radiogroup-how-to-configure-the-event-listener
     private fun selectRadioButton() {
-        model.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        model.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { _, checkedId ->
             model.rb = view?.findViewById(checkedId)
             val isChecked: Boolean = model.rb?.isChecked ?: false
 
