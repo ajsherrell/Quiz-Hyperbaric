@@ -98,7 +98,7 @@ class ListFragment : Fragment() {
 
     private fun showError(@StringRes errorMessage: Int) {
         errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
-        errorSnackbar?.setAction(R.string.retry, model.errorClickListener)
+        errorSnackbar?.setAction(resources.getString(R.string.retry), model.errorClickListener)
         errorSnackbar?.show()
     }
 
