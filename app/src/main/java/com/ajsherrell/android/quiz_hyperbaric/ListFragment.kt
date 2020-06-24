@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -77,9 +76,6 @@ class ListFragment : Fragment() {
             model.getQuizData()
             hideError()
         } else {
-//            model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
-//                if (errorMessage != null) showError(errorMessage) else hideError()
-//            })
             showError(model.errorMessage)
         }
 

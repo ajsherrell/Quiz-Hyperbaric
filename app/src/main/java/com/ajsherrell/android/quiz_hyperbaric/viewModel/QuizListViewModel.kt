@@ -19,12 +19,10 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.wifi.WifiManager
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
@@ -35,14 +33,12 @@ import com.ajsherrell.android.quiz_hyperbaric.model.Response
 import com.ajsherrell.android.quiz_hyperbaric.network.NetworkModule
 import com.ajsherrell.android.quiz_hyperbaric.utils.SharedPreferenceHelper
 import com.ajsherrell.android.quiz_hyperbaric.utils.getOrEmpty
-import com.google.gson.Gson
 import kotlinx.coroutines.*
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
-//    var wifiManager: WifiManager = app.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
     var connManager: ConnectivityManager = app.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     var score: String = ""
@@ -82,11 +78,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val repo : QuizRepository = QuizRepository(NetworkModule.quizApi)
 
+    val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
+
     //profile
     var profileName = ObservableField("")
     var profileTitle = ObservableField("")
 
-//    private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
     fun clearSharedPrefs() {
@@ -129,16 +126,14 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     var errorMessage: String = ""
-//    val errorMessage: MutableLiveData<Int?> = MutableLiveData()
     val errorClickListener = View.OnClickListener {
     if (isWiFiConnected()) {
         getQuizData()
+        mutableLoading.value = View.GONE
     } else {
         Toast.makeText(app.applicationContext, "Please connect to Wi-Fi", Toast.LENGTH_LONG).show()
     }
 }
-
-    val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
 
     private val _quizLiveData: MutableLiveData<Response> = MutableLiveData()
     val quizLiveData: LiveData <Response>
@@ -154,6 +149,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
                 onRetrieveDataSuccess()
                 val quizData = repo.getQuizData()
                 _quizLiveData.value = quizData
+                onRetrieveDataFinish()
             }
         } catch (e: IllegalThreadStateException) {
             e.printStackTrace()
@@ -180,7 +176,6 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private fun onRetrieveDataSuccess() {
         mutableLoading.value = View.VISIBLE
-        errorMessage = null.toString()
     }
 
     private fun onRetrieveDataError() {
