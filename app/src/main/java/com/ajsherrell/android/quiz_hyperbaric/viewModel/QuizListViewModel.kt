@@ -16,9 +16,14 @@
 package com.ajsherrell.android.quiz_hyperbaric.viewModel
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.wifi.WifiManager
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.ajsherrell.android.quiz_hyperbaric.R
@@ -35,6 +40,9 @@ import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
+
+//    var wifiManager: WifiManager = app.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    var connManager: ConnectivityManager = app.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     var score: String = ""
     var bank = listOf<Questions>()
@@ -77,7 +85,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var profileName = ObservableField("")
     var profileTitle = ObservableField("")
 
-    private val gson by lazy { Gson() }
+//    private val gson by lazy { Gson() }
     private val sharedPrefs by lazy { SharedPreferenceHelper(app) }
 
     fun clearSharedPrefs() {
@@ -191,6 +199,16 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
             sbScore.append(" ")
             sbScore.append(scores[i])
             sbScore.append("\n")
+        }
+    }
+
+    fun isWiFiConnected(): Boolean {
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            val network = connManager.activeNetwork
+            val capabilities = connManager.getNetworkCapabilities(network)
+            capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        } else {
+            return false
         }
     }
 

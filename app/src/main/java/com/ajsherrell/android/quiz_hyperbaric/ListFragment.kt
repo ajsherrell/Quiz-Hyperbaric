@@ -72,11 +72,13 @@ class ListFragment : Fragment() {
             hasFixedSize()
         }
 
-        model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
-            if (errorMessage != null) showError(errorMessage) else hideError()
-        })
-
-        model.getQuizData()
+        if (model.isWiFiConnected()) {
+            model.getQuizData()
+        } else {
+            model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+                if (errorMessage != null) showError(errorMessage) else hideError()
+            })
+        }
 
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
             quizListAdapter.updateListItems(it.category)
