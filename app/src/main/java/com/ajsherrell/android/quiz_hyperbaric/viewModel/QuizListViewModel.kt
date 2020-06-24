@@ -23,6 +23,7 @@ import android.net.wifi.WifiManager
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
@@ -127,8 +128,15 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         return percentage.toInt()
     }
 
-    val errorMessage: MutableLiveData<Int?> = MutableLiveData()
-    val errorClickListener = View.OnClickListener { getQuizData() }
+    var errorMessage: String = ""
+//    val errorMessage: MutableLiveData<Int?> = MutableLiveData()
+    val errorClickListener = View.OnClickListener {
+    if (isWiFiConnected()) {
+        getQuizData()
+    } else {
+        Toast.makeText(app.applicationContext, "Please connect to Wi-Fi", Toast.LENGTH_LONG).show()
+    }
+}
 
     val mutableLoading: MutableLiveData<Int?> = MutableLiveData()
 
@@ -172,12 +180,12 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
 
     private fun onRetrieveDataSuccess() {
         mutableLoading.value = View.VISIBLE
-        errorMessage.value = null
+        errorMessage = null.toString()
     }
 
     private fun onRetrieveDataError() {
         mutableLoading.value = View.GONE
-        errorMessage.value = R.string.error_message
+        errorMessage = R.string.error_message.toString()
         cancelRequest()
     }
 

@@ -72,12 +72,15 @@ class ListFragment : Fragment() {
             hasFixedSize()
         }
 
+        model.errorMessage = resources.getString(R.string.error_message)
         if (model.isWiFiConnected()) {
             model.getQuizData()
+            hideError()
         } else {
-            model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
-                if (errorMessage != null) showError(errorMessage) else hideError()
-            })
+//            model.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+//                if (errorMessage != null) showError(errorMessage) else hideError()
+//            })
+            showError(model.errorMessage)
         }
 
         model.quizLiveData.observe(viewLifecycleOwner, Observer {
@@ -98,7 +101,7 @@ class ListFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun showError(@StringRes errorMessage: Int) {
+    private fun showError(errorMessage: String) {
         errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
         errorSnackbar?.setAction(resources.getString(R.string.retry), model.errorClickListener)
         errorSnackbar?.show()
