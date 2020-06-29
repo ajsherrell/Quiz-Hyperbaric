@@ -94,9 +94,9 @@ class DetailFragment : Fragment() {
             nextButton()
         }
         binding.submit.setOnClickListener {
-            model.saveHighScore()
             val scoreString = resources.getString(R.string.percent, model.scorePercentage(totalScore))
-            model.scores.add(scoreString)
+            model.scores.add(totalScore.toString()) //todo: for loop to add lists
+            model.saveHighScore()
             launchScoresFragment(totalScore)
         }
 

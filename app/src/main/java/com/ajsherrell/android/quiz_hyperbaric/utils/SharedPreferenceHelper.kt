@@ -33,7 +33,10 @@ class SharedPreferenceHelper(context: Context) {
     private val sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
 
     fun clearHighScores() {
-        sharedPreferences.edit().clear().apply()
+        val scores = sharedPreferences.getString(SCORES, null)
+        if (scores != null) {
+            sharedPreferences.edit().clear().apply()
+        }
     }
 
     fun getProfile(): Profile {
