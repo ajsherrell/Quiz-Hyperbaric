@@ -194,22 +194,15 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun addScores() {
-        var cat = categories.first()
-        score = scores.first()
+        var cat = ""
         for (i in 0 until categories.size) {
             for (j in 0 until scores.size) {
-
-                if (categories.first() != categories[i]) {
-                    cat = categories[i]
-                    score = scores[j]
-                } else {
-                    cat = categories.first()
-                    score = scores[j]
-                }
+                cat = categories[i]
+                score = scores[j]
             }
         }
         val s = score.toInt()
-        val scoreString = app.getString(R.string.percent, scorePercentage(s)) //todo: move here
+        val scoreString = app.getString(R.string.percent, scorePercentage(s))
         sbCat.append(cat)
         sbCat.append("\n")
         sbScore.append(" ")

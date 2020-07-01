@@ -72,6 +72,9 @@ class HighScoreFragment : Fragment() {
     }
 
     private fun clearHighScores() {
+        //clears the StringBuilders
+        model.sbScore.clear()
+        model.sbCat.clear()
         model.clearSharedPrefs()
         gone()
     }
@@ -106,8 +109,8 @@ class HighScoreFragment : Fragment() {
     }
 
     private fun addScores() {
-        visible()
         model.addScores()
+        visible()
     }
 
     companion object {
