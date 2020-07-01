@@ -193,33 +193,28 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         cancelRequest()
     }
 
-//    fun addScores() {
-//        for (i in 0 until categories.size) { //todo: use a mutable map?
-//            if (scoreCategory != categories[i]) {
-//                sbCat.append(categories[i])
-//                sbCat.append("\n")
-//                for (j in 0 until scores.size) {
-//                    sbScore.append(" ")
-//                    sbScore.append(scores[j])
-//                    sbScore.append("\n")
-//                }
-//            }
-//        }
-//    }
-
-    fun addScores(): MutableMap<String, Int> {
-        val mutableMap: MutableMap<String, Int> = mutableMapOf()
-        var cat = ""
-        var s = 0
+    fun addScores() {
+        var cat = categories.first()
+        score = scores.first()
         for (i in 0 until categories.size) {
-            cat = categories[i]
+            for (j in 0 until scores.size) {
+
+                if (categories.first() != categories[i]) {
+                    cat = categories[i]
+                    score = scores[j]
+                } else {
+                    cat = categories.first()
+                    score = scores[j]
+                }
+            }
         }
-        for (i in 0 until scores.size) {
-            score = scores[i]
-            s = score.toInt()
-        }
-        mutableMap[cat] = s
-        return mutableMap
+        val s = score.toInt()
+        val scoreString = app.getString(R.string.percent, scorePercentage(s)) //todo: move here
+        sbCat.append(cat)
+        sbCat.append("\n")
+        sbScore.append(" ")
+        sbScore.append(scoreString)
+        sbScore.append("\n")
     }
 
     fun isWiFiConnected(): Boolean {

@@ -106,30 +106,8 @@ class HighScoreFragment : Fragment() {
     }
 
     private fun addScores() {
-        var cat1: String? = null
-        var s1: Int = 0
         visible()
-        val mutableMap = model.addScores()
-        val iterator = mutableMap.iterator()
-        iterator.forEach {
-            cat1 = it.key
-            s1 = it.value
-            if (iterator.hasNext()) {
-                iterator.next()
-                if (cat1 == it.key) {
-                    cat1 = it.key
-                    s1 = it.value
-                } else {
-                    s1 = it.value
-                } //todo: duplicating category still.
-            }
-        }
-        val scoreString = resources.getString(R.string.percent, model.scorePercentage(s1))
-        model.sbCat.append(cat1)
-        model.sbCat.append("\n")
-        model.sbScore.append(" ")
-        model.sbScore.append(scoreString)
-        model.sbScore.append("\n")
+        model.addScores()
     }
 
     companion object {
