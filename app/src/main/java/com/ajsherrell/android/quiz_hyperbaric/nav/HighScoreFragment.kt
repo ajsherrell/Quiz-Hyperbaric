@@ -122,6 +122,14 @@ class HighScoreFragment : Fragment() {
         if (!model.hasFullProfile()) {
             noProfile()
         } else {
+            showScores()
+        }
+    }
+
+    private fun showScores() {
+        if (!model.hasFullScores()) {
+            gone()
+        } else {
             model.addScores()
             visible()
         }
