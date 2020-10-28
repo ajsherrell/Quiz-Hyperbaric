@@ -25,6 +25,7 @@ import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentHighScoreBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
+import java.lang.IllegalArgumentException
 
 private const val SCORE = "score"
 
@@ -76,7 +77,7 @@ class HighScoreFragment : Fragment() {
         model.sbScore.clear()
         model.sbCat.clear()
         model.clearSharedPrefs()
-        gone()
+        invisible()
     }
 
     override fun onDestroyView() {
@@ -88,24 +89,12 @@ class HighScoreFragment : Fragment() {
 
     private fun gone() {
         binding.highScoreTopTitle.text = getString(R.string.no_scores)
-        binding.highScoreTitle.visibility = View.GONE
-        binding.highScoreName.visibility = View.GONE
-        binding.highScoreCat.visibility = View.GONE
-        binding.highScoreNum.visibility = View.GONE
-        binding.number.visibility = View.GONE
-        binding.category.visibility = View.GONE
-        binding.clearAllText.visibility = View.GONE
+        invisible()
     }
 
     private fun noProfile() {
         binding.highScoreTopTitle.text = getString(R.string.no_profile)
-        binding.highScoreTitle.visibility = View.GONE
-        binding.highScoreName.visibility = View.GONE
-        binding.highScoreCat.visibility = View.GONE
-        binding.highScoreNum.visibility = View.GONE
-        binding.number.visibility = View.GONE
-        binding.category.visibility = View.GONE
-        binding.clearAllText.visibility = View.GONE
+        invisible()
     }
 
     private fun visible() {
@@ -117,6 +106,16 @@ class HighScoreFragment : Fragment() {
         binding.number.visibility = View.VISIBLE
         binding.category.visibility = View.VISIBLE
         binding.clearAllText.visibility = View.VISIBLE
+    }
+
+    private fun invisible() {
+        binding.highScoreTitle.visibility = View.GONE
+        binding.highScoreName.visibility = View.GONE
+        binding.highScoreCat.visibility = View.GONE
+        binding.highScoreNum.visibility = View.GONE
+        binding.number.visibility = View.GONE
+        binding.category.visibility = View.GONE
+        binding.clearAllText.visibility = View.GONE
     }
 
     private fun addScores() {

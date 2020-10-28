@@ -65,5 +65,6 @@
     <string name="zero">0</string>
     <string name="score"><u>Score:</u></string>
     <string name="separator"> <![CDATA[----->]]> </string>
+    <string name="error">Error!!</string>
     <string name="ajacks">ajacks</string>
 </resources>
