@@ -97,6 +97,17 @@ class HighScoreFragment : Fragment() {
         binding.clearAllText.visibility = View.GONE
     }
 
+    private fun noProfile() {
+        binding.highScoreTopTitle.text = getString(R.string.no_profile)
+        binding.highScoreTitle.visibility = View.GONE
+        binding.highScoreName.visibility = View.GONE
+        binding.highScoreCat.visibility = View.GONE
+        binding.highScoreNum.visibility = View.GONE
+        binding.number.visibility = View.GONE
+        binding.category.visibility = View.GONE
+        binding.clearAllText.visibility = View.GONE
+    }
+
     private fun visible() {
         binding.highScoreTopTitle.text = getString(R.string.high_score_text)
         binding.highScoreTitle.visibility = View.VISIBLE
@@ -109,8 +120,12 @@ class HighScoreFragment : Fragment() {
     }
 
     private fun addScores() {
-        model.addScores()
-        visible()
+        if (!model.hasFullProfile()) {
+            noProfile()
+        } else {
+            model.addScores()
+            visible()
+        }
     }
 
     companion object {

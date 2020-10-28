@@ -4,8 +4,10 @@
 
 ### Components
 
-- List/detail view
-- Fragments
+- List/detail view: one activity, many fragments.
+- Navigation
+- Coroutines
+- MVVM
 - RecyclerView
 - DataBinding
 - LiveData

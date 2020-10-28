@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.ajsherrell.android.quiz_hyperbaric.DetailFragmentArgs
 import com.ajsherrell.android.quiz_hyperbaric.R
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentScoresBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel

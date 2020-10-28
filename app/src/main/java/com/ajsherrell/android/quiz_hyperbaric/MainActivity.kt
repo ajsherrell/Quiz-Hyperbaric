@@ -20,7 +20,6 @@ import android.os.Bundle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -32,7 +31,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.ajsherrell.android.quiz_hyperbaric.databinding.ActivityMainBinding
 import com.ajsherrell.android.quiz_hyperbaric.databinding.NavHeaderBinding
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
-import timber.log.Timber
 import java.lang.IllegalArgumentException
 
  class MainActivity : AppCompatActivity() {
