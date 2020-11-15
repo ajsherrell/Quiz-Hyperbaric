@@ -73,7 +73,7 @@ class ListFragment : Fragment() {
 
         model.errorMessage = resources.getString(R.string.error_message)
         if (model.isWiFiConnected()) {
-            model.getQuizData()
+            model.getQuizListData()
             hideError()
         } else {
             showError(model.errorMessage)

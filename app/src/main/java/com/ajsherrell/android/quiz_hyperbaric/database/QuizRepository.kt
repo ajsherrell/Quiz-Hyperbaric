@@ -23,17 +23,17 @@ import java.io.IOException
 
 class QuizRepository(private val api: QuizApi) : BaseRepository() {
 
-    suspend fun getQuizData() : Response? {
+    suspend fun getRepoQuizListData() : Response? {
         return safeApiCall(
                 call = { api.getQuizAsync().await() },
-                error = "Error fetching quiz data!!!"
+                error = "Error fetching quiz list data!!!"
             )
     }
 
-    suspend fun getQData() : MutableList<Category>? {
+    suspend fun getRepoQuizDetailData() : MutableList<Category>? {
         return safeApiCall(
             call = {api.getQuizAsync().await()},
-            error = "Error fetching q data!!!"
+            error = "Error fetching quiz detail data!!!"
         )?.category?.toMutableList()
     }
 }

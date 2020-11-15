@@ -26,7 +26,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.ajsherrell.android.quiz_hyperbaric.databinding.FragmentDetailBinding
-import com.ajsherrell.android.quiz_hyperbaric.model.Questions
 import com.ajsherrell.android.quiz_hyperbaric.viewModel.QuizListViewModel
 
 private const val KEY_INDEX = "index"
@@ -57,7 +56,7 @@ class DetailFragment : Fragment() {
         rootView = binding.root
         binding.model = model
 
-        model.getQData()
+        model.getQuizDetailData()
 
         model.catLiveData.observe(viewLifecycleOwner, Observer {
 

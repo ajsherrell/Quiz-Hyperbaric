@@ -128,7 +128,7 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     var errorMessage: String = ""
     val errorClickListener = View.OnClickListener {
     if (isWiFiConnected()) {
-        getQuizData()
+        getQuizListData()
         mutableLoading.value = View.GONE
     } else {
         Toast.makeText(app.applicationContext, "Please connect to Wi-Fi", Toast.LENGTH_LONG).show()
@@ -143,11 +143,11 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
     val catLiveData: LiveData<List<Category>>
         get() = _catLiveData
 
-    fun getQuizData() { //sets up the ListFragment
+    fun getQuizListData() { //sets up the ListFragment
         try {
             scope.launch {
                 onRetrieveDataSuccess()
-                val quizData = repo.getQuizData()
+                val quizData = repo.getRepoQuizListData()
                 _quizLiveData.value = quizData
                 onRetrieveDataFinish()
             }
@@ -160,10 +160,10 @@ class QuizListViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun getQData() { //sets up the DetailFragment
+    fun getQuizDetailData() { //sets up the DetailFragment
         try {
             scope.launch {
-                val qData = repo.getQData()
+                val qData = repo.getRepoQuizDetailData()
                 _catLiveData.value = qData
             }
         } catch (e: IllegalThreadStateException) {
