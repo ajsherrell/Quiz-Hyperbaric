@@ -20,10 +20,10 @@
 
     <item
         android:drawable="@drawable/robot3"
-        android:top="48dp"
-        android:width="350dp"
-        android:height="600dp"
-        android:gravity="center_horizontal" />
+        android:top="120dp"
+        android:width="200dp"
+        android:height="350dp"
+        android:gravity="center" />
 
 </layer-list>
 
